@@ -7,40 +7,41 @@ export const MainView = () => {
     {
         "id": 1,
         "title": "Inception",
-        "image": "https://m.media-amazon.com/images/M/MV5BMmQ0NjM5ZjQtOTdmZC00ZjM2LWE1YWItYjZkZjBhMGJlYzZiXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg",
+        "image": "https://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1._SX640_SY948_.jpg",
         "director": "Christopher Nolan",
     },
     {
         "id": 2,
         "title": "The Dark Knight",
-        "image": "https://m.media-amazon.com/images/M/MV5BMjA4ZGRjYzEtM2E2MC00ZmQ4LThkY2ItY2EzZDZjZGRjZTJjXkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg",
+        "image": "https://image.tmdb.org/t/p/original/eP5NL7ZlGoW9tE9qnCdHpOLH1Ke.jpg",
         "director": "Christopher Nolan",
     },
     {
         "id": 3,
         "title": "Pulp Fiction",
-        "image": "https://m.media-amazon.com/images/M/MV5BMmE4Mzg2NDAtMjFhZi00OTViLWE4NDEtNDM0MTg1ZDEzYWI1XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg",
+        "image": "https://image.tmdb.org/t/p/original/pbWgQPC6l9pkpEpi3WNRSfWYNP6.jpg",
         "director": "Quentin Tarantino",
     },
     {
         "id": 4,
         "title": "The Shawshank Redemption",
-        "image": "https://m.media-amazon.com/images/M/MV5BMDFkYTc0MGEtZmNhMC00ZjQwLTlhODAtYzY0ZTdkYzE3NWE2XkEyXkFqcGdeQXVyNjUwNzk3NDc@._V1_.jpg",
+        "image": "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
         "director": "Frank Darabont",
     },
     {
         "id": 5,
         "title": "The Godfather",
-        "image": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmYtYTAwMC00ZjQwLTg4NDItNzRlYWE2NzdkMWE1XkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
+        "image": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
         "director": "Francis Ford Coppola",
-    }
-    ,
+    },
   ]);
   //if movie is clicked or selected, load MovieView
   const [selectedMovie, setSelectedMovie] = useState(null);
 
   if (selectedMovie) {
-    return <MovieView movie={selectedMovie} />;
+    return (
+    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+  );
   }
 
   //loop to load list of movie Titles at movies.map
