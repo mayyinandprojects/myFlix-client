@@ -3,38 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
-  const [movies, setMovies] = useState([
-    {
-        "id": 1,
-        "title": "Inception",
-        "image": "https://ia.media-imdb.com/images/M/MV5BMjAxMzY3NjcxNF5BMl5BanBnXkFtZTcwNTI5OTM0Mw@@._V1._SX640_SY948_.jpg",
-        "director": "Christopher Nolan",
-    },
-    {
-        "id": 2,
-        "title": "The Dark Knight",
-        "image": "https://image.tmdb.org/t/p/original/eP5NL7ZlGoW9tE9qnCdHpOLH1Ke.jpg",
-        "director": "Christopher Nolan",
-    },
-    {
-        "id": 3,
-        "title": "Pulp Fiction",
-        "image": "https://image.tmdb.org/t/p/original/pbWgQPC6l9pkpEpi3WNRSfWYNP6.jpg",
-        "director": "Quentin Tarantino",
-    },
-    {
-        "id": 4,
-        "title": "The Shawshank Redemption",
-        "image": "https://image.tmdb.org/t/p/original/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg",
-        "director": "Frank Darabont",
-    },
-    {
-        "id": 5,
-        "title": "The Godfather",
-        "image": "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
-        "director": "Francis Ford Coppola",
-    },
-  ]);
+  const [movies, setMovies] = useState([]);
   //if movie is clicked or selected, load MovieView
   const [selectedMovie, setSelectedMovie] = useState(null);
 
