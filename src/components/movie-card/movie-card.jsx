@@ -1,14 +1,28 @@
+// Here you import the PropTypes library
+import PropTypes from "prop-types";
+
+// The MovieCard function component
 export const MovieCard = ({ movie, onMovieClick }) => {
-    return (
-      <div
-        onClick={() => {
-          onMovieClick(movie);
-        }}
-      >
-        {movie.title}
-      </div>
-    );
-  };
+  return (
+    <div
+      onClick={() => {
+        onMovieClick(movie);
+      }}
+    >
+      {movie.title}
+    </div>
+  );
+};
+
+// Here is where we define all the props constraints for the MovieCard
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    author: PropTypes.string,
+  }).isRequired,
+  onMovieClick: PropTypes.func.isRequired,
+};
   
   // in React, the only component that can
   //directly change a state is the component that owns that state, in this case, MainView.
@@ -39,4 +53,10 @@ export const MovieCard = ({ movie, onMovieClick }) => {
   //     );
   //   };
   // Note that movie passed to onMovieClick(...); is the prop you extracted earlier in main-view.jsx
-  
+  // Here, you set the static PropTypes property on MovieCard to an object that contains special values provided as utilities by prop-types. These values help specify what the MovieCard props should look like.
+
+// The props object must include a movie object (shape({...}) means that it’s an object).
+// The movie prop (object) may contain a title key; if it does, then it must be of type string.
+// The props object must contain onMovieClick and it must be a function.
+// If you want a prop to be optional, make sure you check for that property's presence before using it. For example, if you made image optional, you’d need to add a conditional that checks whether movie.image is present before using {movie.image} inside MovieCard. This is done to avoid raising errors in case image was set to null in the API.
+//prop-types can help you catch errors when passing props, which is great as it means you don’t have to rely on your users catching errors in the browser!
