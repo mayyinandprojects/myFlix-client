@@ -1,32 +1,60 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 
 export const MainView = () => {
   const [movies, setMovies] = useState([]);
-  //if movie is clicked or selected, load MovieView
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetch("https://movie-api-4o5a.onrender.com/movies")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const moviesFromApi = data.map((movie) => {
+          return {
+            id: movie._id,
+            title: movie.title,
+            image: movie.imageurl,
+            directors: movie.directors?.[0]?.name || "Unknown Director",
+            genre: movie.genre?.name || "Unknown Genre",
+            description: movie.description,
+            featured: movie.featured,
+            actors: movie.actors,
+            releaseYear: movie.release_year,
+            rating: movie.rating,
+          };
+        });
+
+        setMovies(moviesFromApi);
+      })
+      .catch((error) => {
+        console.error("Error fetching movies:", error);
+        setError(error.message);
+      });
+  }, []);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   if (selectedMovie) {
     return (
-    <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
-  );
+      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+    );
   }
 
-  //loop to load list of movie Titles at movies.map
   if (movies.length === 0) {
     return <div>The list is empty!</div>;
   }
 
   return (
     <div>
-      <button
-        onClick={() => {
-          alert("Nice!");
-        }}
-      >
-        Click me!
-      </button>
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}
@@ -39,6 +67,7 @@ export const MainView = () => {
     </div>
   );
 };
+
 
 //export keyword exposes the MainView component, enabling the component to be imported in other files.
 //inside the MainView is JSX, similar to HTML
