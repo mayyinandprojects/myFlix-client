@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 
 export const LoginView = ({ onLoggedIn }) => {
-
+   // Prevent the default form submission behavior
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = (event) => {
+
+    event.preventDefault();
+
     const data = {
       Username: username,
       Password: password
@@ -21,6 +24,8 @@ export const LoginView = ({ onLoggedIn }) => {
       .then((data) => {
         console.log("Login response: ", data);
         if (data.user) {
+          localStorage.setItem("user", JSON.stringify(data.user));
+          localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
         } else {
           alert("No such user");
@@ -30,6 +35,12 @@ export const LoginView = ({ onLoggedIn }) => {
         alert("Something went wrong");
       });
     };
+
+
+    // To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
+
+
+
   //   fetch("https://movie-api-4o5a.onrender.com/login", {
   //     method: "POST",
   //     headers: {
