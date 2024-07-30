@@ -9,13 +9,15 @@ export const MainView = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [user, setUser] = useState(storedUser);
+  const [token, setToken] = useState(storedToken);
 
   useEffect(() => {
-    if (!token) return;  
+    if (!token) return;
 
-    fetch("https://movie-api-4o5a.onrender.com/movies")
+    fetch("https://movie-api-4o5a.onrender.com/movies", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -23,28 +25,25 @@ export const MainView = () => {
         return response.json();
       })
       .then((data) => {
-        const moviesFromApi = data.map((movie) => {
-          return {
-            id: movie._id,
-            title: movie.title,
-            image: movie.imageurl,
-            directors: movie.directors?.[0]?.name || "Unknown Director",
-            genre: movie.genre?.name || "Unknown Genre",
-            description: movie.description,
-            featured: movie.featured,
-            actors: movie.actors,
-            releaseYear: movie.release_year,
-            rating: movie.rating,
-          };
-        });
-
+        const moviesFromApi = data.map((movie) => ({
+          id: movie._id,
+          title: movie.title,
+          image: movie.imageurl,
+          directors: movie.directors?.[0]?.name || "Unknown Director",
+          genre: movie.genre?.name || "Unknown Genre",
+          description: movie.description,
+          featured: movie.featured,
+          actors: movie.actors,
+          releaseYear: movie.release_year,
+          rating: movie.rating,
+        }));
         setMovies(moviesFromApi);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
         setError(error.message);
       });
-  }, []);
+  }, [token]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -56,12 +55,12 @@ export const MainView = () => {
         onLoggedIn={(user, token) => {
           setUser(user);
           setToken(token);
+          localStorage.setItem("user", JSON.stringify(user));
+          localStorage.setItem("token", token);
         }}
       />
     );
   }
-
-
 
   if (selectedMovie) {
     return (
@@ -84,10 +83,11 @@ export const MainView = () => {
           }}
         />
       ))}
-      <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
+      <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
     </div>
   );
 };
+
 
 
 // To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
