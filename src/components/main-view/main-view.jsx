@@ -4,11 +4,17 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 
 export const MainView = () => {
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
+    if (!token) return;  
+
     fetch("https://movie-api-4o5a.onrender.com/movies")
       .then((response) => {
         if (!response.ok) {
@@ -44,6 +50,19 @@ export const MainView = () => {
     return <div>Error: {error}</div>;
   }
 
+  if (!user) {
+    return (
+      <LoginView
+        onLoggedIn={(user, token) => {
+          setUser(user);
+          setToken(token);
+        }}
+      />
+    );
+  }
+
+
+
   if (selectedMovie) {
     return (
       <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
@@ -65,16 +84,25 @@ export const MainView = () => {
           }}
         />
       ))}
+      <button onClick={() => { setUser(null); setToken(null); }}>Logout</button>
     </div>
   );
 };
 
-//LoginView
-const [user, setUser] = useState(null);
 
-if (!user) {
-  return <LoginView />;
+// To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
+if (data.user) {
+  localStorage.setItem("user", JSON.stringify(data.user));
+  localStorage.setItem("token", data.token);
+  onLoggedIn(data.user, data.token);
+} else {
+  alert("No such user");
 }
+
+
+
+
+
 
 //export keyword exposes the MainView component, enabling the component to be imported in other files.
 //inside the MainView is JSX, similar to HTML
