@@ -28504,15 +28504,15 @@ var _s = $RefreshSig$();
 const LoginView = ({ onLoggedIn })=>{
     _s();
     // Prevent the default form submission behavior
-    const [username, setUsername] = (0, _react.useState)("");
-    const [password, setPassword] = (0, _react.useState)("");
+    const [username, setusername] = (0, _react.useState)("");
+    const [password, setpassword] = (0, _react.useState)("");
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            Username: username,
-            Password: password
+            username: username,
+            password: password
         };
-        fetch("https://movie-api-4o5a.onrender.com/login", {
+        fetch("https://movie-api-4o5a.onrender.com/login?username=" + username + "&password=" + password, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -28526,35 +28526,10 @@ const LoginView = ({ onLoggedIn })=>{
                 onLoggedIn(data.user, data.token);
             } else alert("No such user");
         }).catch((e)=>{
+            console.error("Login error: ", e, username, password);
             alert("Something went wrong");
         });
     };
-    // To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
-    //   fetch("https://movie-api-4o5a.onrender.com/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json"
-    //     },
-    //     body: JSON.stringify(data)
-    //   }).then((response) => response.json())
-    //   .then((data) => {
-    //     console.log("Login response: ", data);
-    //     if (data.user) {
-    //       onLoggedIn(data.user, data.token);
-    //     } else {
-    //       alert("No such user");
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     alert("Something went wrong");
-    //   });
-    //   // this prevents the default behavior of the form which is to reload the entire page
-    //   event.preventDefault();
-    // };
-    // const data = {
-    //   access: username,
-    //   secret: password,
-    // };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("form", {
         onSubmit: handleSubmit,
         children: [
@@ -28564,18 +28539,18 @@ const LoginView = ({ onLoggedIn })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                         type: "text",
                         value: username,
-                        onChange: (e)=>setUsername(e.target.value),
+                        onChange: (e)=>setusername(e.target.value),
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 76,
-                        columnNumber: 9
+                        lineNumber: 45,
+                        columnNumber: 11
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 74,
-                columnNumber: 7
+                lineNumber: 43,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                 children: [
@@ -28583,35 +28558,60 @@ const LoginView = ({ onLoggedIn })=>{
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                         type: "password",
                         value: password,
-                        onChange: (e)=>setPassword(e.target.value),
+                        onChange: (e)=>setpassword(e.target.value),
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 85,
-                        columnNumber: 9
+                        lineNumber: 54,
+                        columnNumber: 11
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 83,
-                columnNumber: 7
+                lineNumber: 52,
+                columnNumber: 9
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 type: "submit",
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 92,
-                columnNumber: 7
+                lineNumber: 61,
+                columnNumber: 9
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 73,
-        columnNumber: 5
+        lineNumber: 42,
+        columnNumber: 7
     }, undefined);
-};
-_s(LoginView, "Lrw7JeD9zj6OUWhT/IH4OIvPKEk=");
+}; // To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
+ //   fetch("https://movie-api-4o5a.onrender.com/login", {
+ //     method: "POST",
+ //     headers: {
+ //       "Content-Type": "application/json"
+ //     },
+ //     body: JSON.stringify(data)
+ //   }).then((response) => response.json())
+ //   .then((data) => {
+ //     console.log("Login response: ", data);
+ //     if (data.user) {
+ //       onLoggedIn(data.user, data.token);
+ //     } else {
+ //       alert("No such user");
+ //     }
+ //   })
+ //   .catch((e) => {
+ //     alert("Something went wrong");
+ //   });
+ //   // this prevents the default behavior of the form which is to reload the entire page
+ //   event.preventDefault();
+ // };
+ // const data = {
+ //   access: username,
+ //   secret: password,
+ // };
+_s(LoginView, "LSvkbuSbLVQRXnUI0Faz22Fq/Dc=");
 _c = LoginView;
 var _c;
 $RefreshReg$(_c, "LoginView");
@@ -28636,6 +28636,7 @@ var _react = require("react");
 var _s = $RefreshSig$();
 const SignupView = ()=>{
     _s();
+    const [name, setName] = (0, _react.useState)("");
     const [username, setUsername] = (0, _react.useState)("");
     const [password, setPassword] = (0, _react.useState)("");
     const [email, setEmail] = (0, _react.useState)("");
@@ -28643,12 +28644,13 @@ const SignupView = ()=>{
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
-            Username: username,
-            Password: password,
-            Email: email,
-            Birthday: birthday
+            name: name,
+            username: username,
+            password: password,
+            email: email,
+            birthday: birthday
         };
-        fetch("SIGNUP_URL", {
+        fetch("https://movie-api-4o5a.onrender.com/users", {
             method: "POST",
             body: JSON.stringify(data),
             headers: {
@@ -28666,6 +28668,26 @@ const SignupView = ()=>{
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
                 children: [
+                    "Name:",
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
+                        type: "text",
+                        value: name,
+                        onChange: (e)=>setName(e.target.value),
+                        required: true,
+                        minLength: "3"
+                    }, void 0, false, {
+                        fileName: "src/components/signup-view/signup-view.jsx",
+                        lineNumber: 41,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/signup-view/signup-view.jsx",
+                lineNumber: 39,
+                columnNumber: 13
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
+                children: [
                     "Username:",
                     /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                         type: "text",
@@ -28675,13 +28697,13 @@ const SignupView = ()=>{
                         minLength: "3"
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 39,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 37,
+                lineNumber: 49,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28694,13 +28716,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 49,
+                        lineNumber: 61,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 47,
+                lineNumber: 59,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28713,13 +28735,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 58,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 56,
+                lineNumber: 68,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -28732,13 +28754,13 @@ const SignupView = ()=>{
                         required: true
                     }, void 0, false, {
                         fileName: "src/components/signup-view/signup-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, undefined)
                 ]
             }, void 0, true, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 65,
+                lineNumber: 77,
                 columnNumber: 7
             }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -28746,17 +28768,17 @@ const SignupView = ()=>{
                 children: "Submit"
             }, void 0, false, {
                 fileName: "src/components/signup-view/signup-view.jsx",
-                lineNumber: 74,
+                lineNumber: 86,
                 columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/signup-view/signup-view.jsx",
-        lineNumber: 36,
+        lineNumber: 38,
         columnNumber: 5
     }, undefined);
 };
-_s(SignupView, "jsOQN3GC2XlBG9ITlzCdpyJOnso=");
+_s(SignupView, "k7LWYgCAxOueU9fTV8jwMS2xvJQ=");
 _c = SignupView;
 var _c;
 $RefreshReg$(_c, "SignupView");

@@ -1,6 +1,7 @@
 import{ useState } from "react";
 
 export const SignupView = () => {
+  const [name, setName] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -10,13 +11,14 @@ export const SignupView = () => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday
+      name: name,
+      username: username,
+      password: password,
+      email: email,
+      birthday: birthday
     };
 
-    fetch("SIGNUP_URL", {
+    fetch("https://movie-api-4o5a.onrender.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -34,6 +36,16 @@ export const SignupView = () => {
 
   return (
     <form onSubmit={handleSubmit}>
+            <label>
+        Name:
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          minLength="3"
+        />
+      </label>
       <label>
         Username:
         <input
