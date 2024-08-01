@@ -1,4 +1,5 @@
 import "./movie-view.scss";
+import Col from "react-bootstrap/Col";
 
 export const MovieView = ({ movie, onBackClick }) => {
     return (
