@@ -3,6 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
@@ -55,15 +56,23 @@ export const MainView = () => {
   if (!user) {
     return (
       <Row className="justify-content-md-center">
-      <Col md={5}>
-        <LoginView onLoggedIn={(user, token) => {
-          setUser(user);
-          setToken(token);
-        }} />
-        or
-        <SignupView />
+        <Col md={12} className="text-center my-3">
+        <h1>MyFlix DB</h1></Col>
+        <Col md={5}>
+          <LoginView
+            onLoggedIn={(user, token) => {
+              setUser(user);
+              setToken(token);
+            }}
+          />
         </Col>
-        </Row>
+        <Col md={12} className="text-center my-3">
+          <span>or</span>
+        </Col>
+        <Col md={5}>
+          <SignupView />
+        </Col>
+      </Row>
     );
   }
 
@@ -78,9 +87,9 @@ export const MainView = () => {
   }
 
   return (
-    <Row className="justify-content-md-center"> 
+    <Row className="justify-content-md-center mt-5">
       {!user ? (
-         <Col md={5}>
+         <Col md={5}>           
           <LoginView onLoggedIn={(user) => setUser(user)} />
           or
           <SignupView />
@@ -96,9 +105,13 @@ export const MainView = () => {
         <div>The list is empty!</div>
       ) : (
         <>
+         <Row className="justify-content-md-center mt-5">
+      <Col xs={12} className="text-center">
+        <h1>Movie List</h1>
+      </Col>
+    </Row>
           {movies.map((movie) => (
             <Col className="mb-5" key={movie.id} md={3}>
-
             <MovieCard
               key={movie.id}
               movie={movie}
@@ -110,7 +123,8 @@ export const MainView = () => {
           ))}
         </>
       )}
-       <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+      <Col xs={12} className="text-left mt-3 mb-3">
+       <Button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</Button></Col>
     </Row>
     
 );

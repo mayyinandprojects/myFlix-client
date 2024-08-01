@@ -1,18 +1,14 @@
 .back-button {
   color: #f5f5f5;
-  background-color: #1e90ff;
+  background-color: #722e2e;
   border: none;
   border-radius: 4px;
   padding: 4px 12px;
 }
 
 img {
-  width: 50%;
+  width: 100%;
   padding: auto;
-}
-
-.my-flix {
-  color: #4682b4;
 }
 
 :root, [data-bs-theme="light"] {
@@ -13345,5 +13341,64 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+
+body {
+  color: #e0e0e0;
+  background-color: #1f1f1f;
+}
+
+a {
+  color: #80bdff;
+}
+
+a:hover {
+  color: #b3d7ff;
+}
+
+.btn {
+  color: #e0e0e0;
+  background-color: #722e2e;
+  border: 1px solid #3c3c3c;
+}
+
+.btn:hover {
+  background-color: #551919;
+}
+
+input, textarea {
+  color: #e0e0e0;
+  background-color: #333;
+  border: 1px solid #3c3c3c;
+}
+
+input:focus, textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 .2rem #007bff40;
+}
+
+.card {
+  color: #e0e0e0;
+  background-color: #722e2e;
+  border: 1px solid #3c3c3c;
+}
+
+.navbar {
+  background-color: #722e2e;
+  border-bottom: 1px solid #3c3c3c;
+}
+
+.navbar .navbar-brand, .navbar .navbar-nav .nav-link {
+  color: #e0e0e0;
+}
+
+.navbar .navbar-brand:hover, .navbar .navbar-nav .nav-link:hover {
+  color: #b3d7ff;
+}
+
+.footer {
+  color: #e0e0e0;
+  background-color: #722e2e;
+  border-top: 1px solid #3c3c3c;
 }
 /*# sourceMappingURL=index.2212206d.css.map */

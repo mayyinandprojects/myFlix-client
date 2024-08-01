@@ -4,10 +4,11 @@ import Row from "react-bootstrap/Row";
 
 export const MovieView = ({ movie, onBackClick }) => {
     return (
-      <Row className="justify-content-md-center">
-        <div>
+      <Row className="justify-content-md-center mt-5">
+         <Col md={6}>
           <img src={movie.image} />
-        </div>
+          </Col>
+        <Col md={6}>
         <div>
           <span>Title: </span>
           <span>{movie.title}</span>
@@ -18,9 +19,10 @@ export const MovieView = ({ movie, onBackClick }) => {
         </div>
   
         <button 
-        onClick={onBackClick} className="back-button"
+        onClick={onBackClick} className="back-button md={3}"
         style={{ cursor: "pointer" }}
         >Back</button>
+        </Col>
       </Row>
     );
   };
