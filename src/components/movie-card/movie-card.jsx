@@ -1,16 +1,23 @@
 // Here you import the PropTypes library
 import PropTypes from "prop-types";
+//import button and card component from bootstrap
+//for react-bootstrap documentation see: https://react-bootstrap.github.io/docs/components/accordion/
+import { Button, Card } from "react-bootstrap";
+
 
 // The MovieCard function component
 export const MovieCard = ({ movie, onMovieClick }) => {
   return (
-    <div
-      onClick={() => {
-        onMovieClick(movie);
-      }}
-    >
-      {movie.title}
-    </div>
+    <Card>
+      <Card.Img variant="top" src={movie.image} />
+      <Card.Body>
+        <Card.Title>{movie.title}</Card.Title>
+        <Card.Text>{movie.author}</Card.Text>
+        <Button onClick={() => onMovieClick(movie)} variant="link">
+          Open
+        </Button>
+      </Card.Body>
+    </Card>
   );
 };
 
