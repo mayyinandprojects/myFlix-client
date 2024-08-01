@@ -6,6 +6,11 @@
   padding: 4px 12px;
 }
 
+img {
+  width: 50%;
+  padding: auto;
+}
+
 .my-flix {
   color: #4682b4;
 }

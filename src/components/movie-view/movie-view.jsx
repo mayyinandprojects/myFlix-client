@@ -1,9 +1,10 @@
 import "./movie-view.scss";
-import Col from "react-bootstrap/Col";
+import Col from 'react-bootstrap/Col'
+import Row from "react-bootstrap/Row";
 
 export const MovieView = ({ movie, onBackClick }) => {
     return (
-      <div>
+      <Row className="justify-content-md-center">
         <div>
           <img src={movie.image} />
         </div>
@@ -20,7 +21,7 @@ export const MovieView = ({ movie, onBackClick }) => {
         onClick={onBackClick} className="back-button"
         style={{ cursor: "pointer" }}
         >Back</button>
-      </div>
+      </Row>
     );
   };
   //add the function prop onBackClick:
