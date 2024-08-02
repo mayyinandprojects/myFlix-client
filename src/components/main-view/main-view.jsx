@@ -6,6 +6,7 @@ import { SignupView } from "../signup-view/signup-view";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -55,7 +56,10 @@ export const MainView = () => {
 
   if (!user) {
     return (
+      <BrowserRouter>
       <Row className="justify-content-md-center">
+         <Routes>
+          
         <Col md={12} className="text-center my-3">
         <h1>MyFlix DB</h1></Col>
         <Col md={5}>
@@ -72,7 +76,10 @@ export const MainView = () => {
         <Col md={5}>
           <SignupView />
         </Col>
+      )}
+        </Routes>
       </Row>
+      </BrowserRouter>
     );
   }
 
