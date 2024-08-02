@@ -119,7 +119,9 @@ export const MainView = () => {
   }
 
   return (
+    <BrowserRouter>
     <Row className="justify-content-md-center mt-5">
+    <Routes>
       {!user ? (
         <Col md={5}>
           <LoginView onLoggedIn={(user) => setUser(user)} />
@@ -166,7 +168,9 @@ export const MainView = () => {
           Logout
         </Button>
       </Col>
+      </Routes>
     </Row>
+    </BrowserRouter>
   );
 
   // return (
