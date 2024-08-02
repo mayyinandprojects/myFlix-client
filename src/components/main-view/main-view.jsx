@@ -6,6 +6,7 @@ import { SignupView } from "../signup-view/signup-view";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Link } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 export const MainView = () => {
@@ -57,35 +58,59 @@ export const MainView = () => {
   if (!user) {
     return (
       <BrowserRouter>
-      <Row className="justify-content-md-center">
-         <Routes>
-          
-        <Col md={12} className="text-center my-3">
-        <h1>MyFlix DB</h1></Col>
-        <Col md={5}>
-          <LoginView
-            onLoggedIn={(user, token) => {
-              setUser(user);
-              setToken(token);
-            }}
-          />
-        </Col>
-        <Col md={12} className="text-center my-3">
-          <span>or</span>
-        </Col>
-        <Col md={5}>
-          <SignupView />
-        </Col>
-      )}
-        </Routes>
-      </Row>
+        <Row className="justify-content-md-center">
+          <Col md={12} className="text-center my-3">
+            <h1>MyFlix DB</h1>
+          </Col>
+
+          <Routes>
+            <Route
+              path="/login"
+              element={
+                user ? (
+                  <Navigate to="/" />
+                ) : (
+                  <Col md={5}>
+                    <LoginView
+                      onLoggedIn={(user, token) => {
+                        setUser(user);
+                        setToken(token);
+                      }}
+                    />
+                    <Col md={12} className="text-center my-3">
+                      <span>
+                        <Link to="/signup">Click here to Signup</Link>
+                      </span>
+                    </Col>
+                  </Col>
+                )
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <Col md={5}>
+                  <SignupView />
+                  <Col md={12} className="text-center my-3">
+                    <span>
+                      <Link to="/login">Return to Login</Link>
+                    </span>
+                  </Col>
+                </Col>
+              }
+            />
+          </Routes>
+        </Row>
       </BrowserRouter>
     );
   }
 
   if (selectedMovie) {
     return (
-      <MovieView movie={selectedMovie} onBackClick={() => setSelectedMovie(null)} />
+      <MovieView
+        movie={selectedMovie}
+        onBackClick={() => setSelectedMovie(null)}
+      />
     );
   }
 
@@ -96,48 +121,53 @@ export const MainView = () => {
   return (
     <Row className="justify-content-md-center mt-5">
       {!user ? (
-         <Col md={5}>           
+        <Col md={5}>
           <LoginView onLoggedIn={(user) => setUser(user)} />
           or
           <SignupView />
-          </Col>
+        </Col>
       ) : selectedMovie ? (
         <Col md={8}>
-        <MovieView 
-          movie={selectedMovie} 
-          onBackClick={() => setSelectedMovie(null)} 
-        />
+          <MovieView
+            movie={selectedMovie}
+            onBackClick={() => setSelectedMovie(null)}
+          />
         </Col>
       ) : movies.length === 0 ? (
         <div>The list is empty!</div>
       ) : (
         <>
-         <Row className="justify-content-md-center mt-5">
-      <Col xs={12} className="text-center">
-        <h1>Movie List</h1>
-      </Col>
-    </Row>
+          <Row className="justify-content-md-center mt-5">
+            <Col xs={12} className="text-center">
+              <h1>Movie List</h1>
+            </Col>
+          </Row>
           {movies.map((movie) => (
             <Col className="mb-5" key={movie.id} md={3}>
-            <MovieCard
-              key={movie.id}
-              movie={movie}
-              onMovieClick={(newSelectedMovie) => {
-                setSelectedMovie(newSelectedMovie);
-              }}
-            />
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                onMovieClick={(newSelectedMovie) => {
+                  setSelectedMovie(newSelectedMovie);
+                }}
+              />
             </Col>
           ))}
         </>
       )}
       <Col xs={12} className="text-left mt-3 mb-3">
-       <Button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</Button></Col>
+        <Button
+          onClick={() => {
+            setUser(null);
+            setToken(null);
+            localStorage.clear();
+          }}
+        >
+          Logout
+        </Button>
+      </Col>
     </Row>
-    
-);
-
-
-
+  );
 
   // return (
   //   <div>
@@ -154,16 +184,6 @@ export const MainView = () => {
   //   </div>
   // );
 };
-
-
-
-
-
-
-
-
-
-
 
 //export keyword exposes the MainView component, enabling the component to be imported in other files.
 //inside the MainView is JSX, similar to HTML
