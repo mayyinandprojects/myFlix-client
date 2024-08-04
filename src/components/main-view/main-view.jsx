@@ -5,6 +5,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { Link } from "react-router-dom";
 
 export const MainView = () => {
@@ -15,6 +16,13 @@ export const MainView = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
+
+    // Function to handle user logout
+    const onLoggedOut = () => {
+      setUser(null);
+      setToken(null);
+      localStorage.clear();
+    };
 
   useEffect(() => {
     if (!token) return;
@@ -55,6 +63,7 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
+    <NavigationBar user={user} onLoggedOut={onLoggedOut} />
       <Row className="justify-content-md-center mt-5">
         <Routes>
           <Route
