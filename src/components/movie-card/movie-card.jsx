@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 //import button and card component from bootstrap
 //for react-bootstrap documentation see: https://react-bootstrap.github.io/docs/components/accordion/
 import { Button, Card } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 
 // The MovieCard function component
 export const MovieCard = ({ movie, onMovieClick }) => {
@@ -13,10 +13,16 @@ export const MovieCard = ({ movie, onMovieClick }) => {
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.author}</Card.Text>
-        <Button onClick={() => onMovieClick(movie)} variant="link">
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+        <Button variant="link">
           Open
         </Button>
-      </Card.Body>
+        </Link>
+        </Card.Body>
+        {/* <Button onClick={() => onMovieClick(movie)} variant="link">
+          Open
+        </Button> */}
+      
     </Card>
   );
 };
