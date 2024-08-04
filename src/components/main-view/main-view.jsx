@@ -6,6 +6,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
 
 export const MainView = () => {
@@ -16,13 +17,16 @@ export const MainView = () => {
   const [error, setError] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
+  const [users, setUsers] = useState([]);
 
-    // Function to handle user logout
-    const onLoggedOut = () => {
-      setUser(null);
-      setToken(null);
-      localStorage.clear();
-    };
+  // Function to handle user logout
+  const onLoggedOut = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+  };
+
+  console.log(user);
 
   useEffect(() => {
     if (!token) return;
@@ -55,6 +59,33 @@ export const MainView = () => {
         console.error("Error fetching movies:", error);
         setError(error.message);
       });
+    // }, [token]);
+
+    fetch("https://movie-api-4o5a.onrender.com/users", {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const usersFromApi = data.map((user) => ({
+          userId: user._id,
+          name: user.name,
+          username: user.username,
+          password: user.password,
+          email: user.email,
+          birthday: user.birthday,
+          favoriteMovies: user.featured,
+        }));
+        setUsers(usersFromApi);
+      })
+      .catch((error) => {
+        console.error("Error fetching users:", error);
+        setError(error.message);
+      });
   }, [token]);
 
   if (error) {
@@ -63,7 +94,7 @@ export const MainView = () => {
 
   return (
     <BrowserRouter>
-    <NavigationBar user={user} onLoggedOut={onLoggedOut} />
+      <NavigationBar user={user} onLoggedOut={onLoggedOut} />
       <Row className="justify-content-md-center mt-5">
         <Routes>
           <Route
@@ -105,7 +136,7 @@ export const MainView = () => {
               )
             }
           />
-<Route
+          <Route
             path="/movies/:movieId"
             element={
               <>
@@ -119,6 +150,18 @@ export const MainView = () => {
                   </Col>
                 )}
               </>
+            }
+          />
+          <Route
+            path="/users/:userId"
+            element={
+              !user ? (
+                <Navigate to="/login" replace />
+              ) : (
+                <Col md={8}>
+                  <ProfileView users={users} />
+                </Col>
+              )
             }
           />
           <Route
@@ -170,23 +213,20 @@ export const MainView = () => {
   );
 };
 
-
-
-
-  // return (
-  //   <div>
-  //     {movies.map((movie) => (
-  //       <MovieCard
-  //         key={movie.id}
-  //         movie={movie}
-  //         onMovieClick={(newSelectedMovie) => {
-  //           setSelectedMovie(newSelectedMovie);
-  //         }}
-  //       />
-  //     ))}
-  //     <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-  //   </div>
-  // );
+// return (
+//   <div>
+//     {movies.map((movie) => (
+//       <MovieCard
+//         key={movie.id}
+//         movie={movie}
+//         onMovieClick={(newSelectedMovie) => {
+//           setSelectedMovie(newSelectedMovie);
+//         }}
+//       />
+//     ))}
+//     <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
+//   </div>
+// );
 //};
 
 //export keyword exposes the MainView component, enabling the component to be imported in other files.
