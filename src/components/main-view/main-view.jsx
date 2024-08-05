@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
+  // const storedToken = localStorage.getItem("jwtToken");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
@@ -26,7 +27,8 @@ export const MainView = () => {
     localStorage.clear();
   };
 
-  console.log(user);
+  // console.log(user);
+  // console.log(token);
 
   useEffect(() => {
     if (!token) return;
@@ -195,7 +197,7 @@ export const MainView = () => {
             }
           />
         </Routes>
-        {user && (
+        {/* {user && (
           <Col xs={12} className="text-left mt-3 mb-3">
             <Button
               onClick={() => {
@@ -207,7 +209,7 @@ export const MainView = () => {
               Logout
             </Button>
           </Col>
-        )}
+        )} */}
       </Row>
     </BrowserRouter>
   );
