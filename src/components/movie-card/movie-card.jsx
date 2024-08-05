@@ -12,7 +12,7 @@ export const MovieCard = ({ movie, onMovieClick }) => {
       <Card.Img variant="top" src={movie.image} />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
-        <Card.Text>{movie.author}</Card.Text>
+        <Card.Text>{movie.directors}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
         <Button variant="link">
           Open

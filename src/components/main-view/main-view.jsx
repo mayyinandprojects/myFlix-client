@@ -12,7 +12,6 @@ import { Link } from "react-router-dom";
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  // const storedToken = localStorage.getItem("jwtToken");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [error, setError] = useState(null);
@@ -80,7 +79,7 @@ export const MainView = () => {
           password: user.password,
           email: user.email,
           birthday: user.birthday,
-          favoriteMovies: user.featured,
+          favoriteMovies: user.favorite_movies,
         }));
         setUsers(usersFromApi);
       })
@@ -196,7 +195,20 @@ export const MainView = () => {
               )
             }
           />
+                <Route
+        path="/favoritemovies"
+        element={
+          user ? (
+            <Col md={5}>
+              <p>SITE IN PROGRESS</p>
+            </Col>
+          ) : (
+            <Navigate to="/login" />
+          )
+        }
+      />
         </Routes>
+        
         {/* {user && (
           <Col xs={12} className="text-left mt-3 mb-3">
             <Button
