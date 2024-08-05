@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import UserInfo from './user-info';
+import UserInfo from "./user-info";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
@@ -10,21 +10,16 @@ export const ProfileView = ({ users = [] }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
   const storedToken = localStorage.getItem("token");
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [error, setError] = useState(null);
   const [token, setToken] = useState(storedToken);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  const [error, setError] = useState(null);  
   const [movies, setMovies] = useState([]);
 
   // Find the user by ID
   const user = users.find((u) => u.userId === userId);
 
-
-
-  
-
   useEffect(() => {
     if (user) {
-      // Assuming 'user.favoriteMovies' is an array of movie IDs or full movie objects
       setFavoriteMovies(user.favoriteMovies);
     }
   }, [user]);
@@ -65,10 +60,10 @@ export const ProfileView = ({ users = [] }) => {
   console.log(movies);
   console.log(favoriteMovies);
 
-  const favoriteMovieList = movies.filter((m) =>
-    favoriteMovies.includes(String(m.id))  // Convert to string if necessary
+  const favoriteMovieList = movies.filter(
+    (m) => favoriteMovies.includes(String(m.id)) // Convert to string if necessary
   );
-  
+
   console.log(favoriteMovieList);
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = () => {
@@ -111,6 +106,16 @@ export const ProfileView = ({ users = [] }) => {
       console.error("Error updating user:", error);
     }
   };
+
+  const onLoggedOut = () => {
+    setUser(null);
+    setToken(null);
+    localStorage.clear();
+  };
+
+
+ 
+
 
   if (!user) {
     return <div>User not found</div>;
@@ -162,23 +167,22 @@ export const ProfileView = ({ users = [] }) => {
         {isEditing ? "Save" : "Edit Profile"}
       </Button>
 
-
       <div>
         <h2>Favorite Movies</h2>
-        
+
         {favoriteMovies.length === 0 ? (
           <p>No favorite movies found.</p>
         ) : (
           favoriteMovieList.map((movie) => (
             // const movies = movies.find((m) => m._id === movie);
-            <div key={movie.id}>             
+            <div key={movie.id}>
               <img src={movie.image} alt={movie.title} />
               <Link to={`/movies/${movie._id}`}>
                 <h4>{movie.title}</h4>
               </Link>
             </div>
-          )
-          ))}
+          ))
+        )}
       </div>
     </>
   );

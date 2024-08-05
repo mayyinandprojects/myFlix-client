@@ -1,12 +1,18 @@
-// Here you import the PropTypes library
 import PropTypes from "prop-types";
-//import button and card component from bootstrap
-//for react-bootstrap documentation see: https://react-bootstrap.github.io/docs/components/accordion/
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-// The MovieCard function component
-export const MovieCard = ({ movie, onMovieClick }) => {
+export const MovieCard = ({ movie, isFavorite, onFavoriteToggle, username }) => {
+  const [isFav, setIsFav] = useState(isFavorite);
+
+  const handleFavoriteClick = () => {
+    // Toggle the local state first
+    setIsFav(prev => !prev);
+    // Notify the parent component to update the favorite status
+    onFavoriteToggle(movie.id, !isFav);
+  };
+
   return (
     <Card className="h-100">
       <Card.Img variant="top" src={movie.image} />
@@ -14,29 +20,31 @@ export const MovieCard = ({ movie, onMovieClick }) => {
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>{movie.directors}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-        <Button variant="link">
-          Open
-        </Button>
+          <Button variant="link">Open</Button>
         </Link>
-        </Card.Body>
-        {/* <Button onClick={() => onMovieClick(movie)} variant="link">
-          Open
-        </Button> */}
-      
+        <Button 
+          variant={isFav ? "danger" : "secondary"} 
+          onClick={handleFavoriteClick}
+        >
+          {isFav ? "Unfavorite" : "Favorite"}
+        </Button>
+      </Card.Body>
     </Card>
   );
 };
 
-// Here is where we define all the props constraints for the MovieCard
 MovieCard.propTypes = {
   movie: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     directors: PropTypes.string,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  onFavoriteToggle: PropTypes.func.isRequired,
+  username: PropTypes.string.isRequired, //addusername proptype
 };
-  
+
   // in React, the only component that can
   //directly change a state is the component that owns that state, in this case, MainView.
   //that's why you cannot directly use:

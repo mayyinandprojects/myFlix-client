@@ -8,12 +8,14 @@ import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
@@ -28,6 +30,27 @@ export const MainView = () => {
 
   // console.log(user);
   // console.log(token);
+
+  const handleFavoriteToggle = async (movieId, isFavorite) => {
+    const storedToken = localStorage.getItem("token");
+    const username = user.username; // Adjust this if user identification is different
+
+    try {
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      if (isFavorite) {
+        await axios.post(`https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`, {}, { headers });
+      } else {
+        await axios.delete(`https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`, { headers });
+      }
+
+      // Re-fetch or update local state to reflect changes
+    } catch (error) {
+      console.error("Error updating favorite status:", error);
+    }
+  };
 
   useEffect(() => {
     if (!token) return;
@@ -79,7 +102,7 @@ export const MainView = () => {
           password: user.password,
           email: user.email,
           birthday: user.birthday,
-          favoriteMovies: user.favorite_movies,
+          favoriteMovies: user.favorite_movies || [],
         }));
         setUsers(usersFromApi);
       })
@@ -92,6 +115,17 @@ export const MainView = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  
+  useEffect(() => {
+    if (user) {
+      setFavoriteMovies(user.favorite_movies);
+    }
+  }, [user]);
+//   console.log(movies);
+//  console.log(users);
+console.log(movies);
+
 
   return (
     <BrowserRouter>
@@ -178,7 +212,19 @@ export const MainView = () => {
                         <h1>Movie List</h1>
                       </Col>
                     </Row>
+
                     {movies.map((movie) => (
+                      <Col className="mb-5" key={movie.id} md={3}>
+                        <MovieCard
+                          movie={movie}
+                          isFavorite={favoriteMovies.includes(String(movie.id))} // Assuming favoriteMovies is an array of movie IDs
+                          onFavoriteToggle={handleFavoriteToggle}
+                          username={user.username}
+                        />
+                      </Col>
+                    ))}
+
+                    {/* {movies.map((movie) => (
                       <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard
                           movie={movie}
@@ -187,7 +233,7 @@ export const MainView = () => {
                           }
                         />
                       </Col>
-                    ))}
+                    ))} */}
                   </>
                 )
               ) : (
@@ -195,20 +241,20 @@ export const MainView = () => {
               )
             }
           />
-                <Route
-        path="/favoritemovies"
-        element={
-          user ? (
-            <Col md={5}>
-              <p>SITE IN PROGRESS</p>
-            </Col>
-          ) : (
-            <Navigate to="/login" />
-          )
-        }
-      />
+          <Route
+            path="/favoritemovies"
+            element={
+              user ? (
+                <Col md={5}>
+                  <p>SITE IN PROGRESS</p>
+                </Col>
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
         </Routes>
-        
+
         {/* {user && (
           <Col xs={12} className="text-left mt-3 mb-3">
             <Button
