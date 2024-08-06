@@ -45,12 +45,12 @@ export const MainView = () => {
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           {},
           { headers }
-        );
+        );window.location.reload(); 
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
-        );
+        );window.location.reload(); 
       }
 
       // Re-fetch or update local state to reflect changes
@@ -122,6 +122,7 @@ export const MainView = () => {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
 
   
   useEffect(() => {

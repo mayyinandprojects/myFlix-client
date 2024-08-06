@@ -7,6 +7,9 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { Row, Col, Button, Modal } from "react-bootstrap";
 import { MovieCard } from '../movie-card/movie-card';
+import axios from 'axios';
+
+
 
 export const ProfileView = ({ users = [] }) => {
   const { userId } = useParams();
@@ -84,12 +87,14 @@ export const ProfileView = ({ users = [] }) => {
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           {},
           { headers }
-        );
+        );window.location.reload(); 
+        
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
-        );
+        );window.location.reload(); 
+        
       }
 
       // Re-fetch or update local state to reflect changes
@@ -142,15 +147,13 @@ export const ProfileView = ({ users = [] }) => {
   };
 
   const onLoggedOut = () => {
-    setUser(null);
-    setToken(null);
+    // setUser(null);
+    // setToken(null);
     localStorage.clear();
+    window.location.reload();
+
   };
   
-  
-
-
- 
 
 
   if (!user) {
@@ -211,7 +214,7 @@ export const ProfileView = ({ users = [] }) => {
       <div>
       <h3>Delete Account</h3>
     </div>
-    <DeleteAccountButton username={user.username} token={token} />
+    <DeleteAccountButton username={user.username} token={token} onLoggedOut={onLoggedOut} />
 
 
 

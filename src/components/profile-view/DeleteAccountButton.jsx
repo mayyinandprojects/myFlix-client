@@ -3,9 +3,13 @@ import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 
-  const DeleteAccountButton = ({ username, token }) => {
+const DeleteAccountButton = ({ username, token, onLoggedOut }) => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const storedToken = localStorage.getItem("token");
+
+
+
 
   const handleDeleteClick = async () => {
     try {
@@ -19,7 +23,8 @@ import { useNavigate } from "react-router-dom";
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       // Clear local storage or state if needed
-      localStorage.clear();
+
+      onLoggedOut();
       navigate('/login');
     } catch (error) {
       console.error("Error deleting account:", error);
