@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import UserInfo from "./user-info";
-import DeleteAccountButton from './DeleteAccountButton'; 
+import DeleteAccountButton from "./DeleteAccountButton";
 import FavoriteMovies from "./favorite-movies";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import { Row, Col, Button, Modal } from "react-bootstrap";
-
-import axios from 'axios';
+import UpdateUser from "./update-user"
 
 
+import axios from "axios";
 
 export const ProfileView = ({ users = [] }) => {
   const { userId } = useParams();
@@ -19,7 +15,7 @@ export const ProfileView = ({ users = [] }) => {
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [error, setError] = useState(null);  
+  const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
 
   // Find the user by ID
@@ -64,12 +60,8 @@ export const ProfileView = ({ users = [] }) => {
       });
   }, [token]);
 
-  // console.log(movies);
-  // console.log(favoriteMovies);
-
-
   const favoriteMovieList = movies.filter(
-    (m) => favoriteMovies.includes(String(m.id)) // Convert to string if necessary
+    (m) => favoriteMovies.includes(String(m.id)) // Convert to string 
   );
 
   console.log(favoriteMovieList);
@@ -88,14 +80,14 @@ export const ProfileView = ({ users = [] }) => {
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           {},
           { headers }
-        );window.location.reload(); 
-        
+        );
+        window.location.reload();
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
-        );window.location.reload(); 
-        
+        );
+        window.location.reload();
       }
 
       // Re-fetch or update local state to reflect changes
@@ -104,7 +96,6 @@ export const ProfileView = ({ users = [] }) => {
     }
   };
 
- 
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = () => {
     setIsEditing(true);
@@ -152,10 +143,7 @@ export const ProfileView = ({ users = [] }) => {
     // setToken(null);
     localStorage.clear();
     window.location.reload();
-
   };
-  
-
 
   if (!user) {
     return <div>User not found</div>;
@@ -163,65 +151,34 @@ export const ProfileView = ({ users = [] }) => {
 
   return (
     <>
-     <div>
+      <div>
         <UserInfo name={user.name} email={user.email} />
       </div>
-    <div>
-      <h2>Profile Settings</h2>
-    </div>
-     
-      <Form.Group className="mb-3">
-        <Form.Label>Name</Form.Label>
-        <Form.Control
-          name="name"
-          value={isEditing ? editedUser.name : user.name}
-          onChange={handleChange}
-          disabled={!isEditing}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          name="username"
-          value={isEditing ? editedUser.username : user.username}
-          onChange={handleChange}
-          disabled={!isEditing}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Email</Form.Label>
-        <Form.Control
-          name="email"
-          value={isEditing ? editedUser.email : user.email}
-          onChange={handleChange}
-          disabled={!isEditing}
-        />
-      </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label>Birthday</Form.Label>
-        <Form.Control
-          name="birthday"
-          value={isEditing ? editedUser.birthday : user.birthday}
-          onChange={handleChange}
-          disabled={!isEditing}
-        />
-      </Form.Group>
 
-      <Button onClick={isEditing ? handleSaveClick : handleEditClick}>
-        {isEditing ? "Save" : "Edit Profile"}
-      </Button>
-      <hr/>
-
+      <hr />
+      <UpdateUser 
+        user = {user} 
+        handleChange ={handleChange} 
+        handleSaveClick={handleSaveClick}
+        handleEditClick = {handleEditClick} 
+        isEditing={isEditing}
+      />
+      <hr />
       <div>
-      <h3>Delete Account</h3>
-    </div>
-    <DeleteAccountButton username={user.username} token={token} onLoggedOut={onLoggedOut} />
-    <hr/>
-    <FavoriteMovies user={user} favoriteMovies={favoriteMovies} handleFavoriteToggle={handleFavoriteToggle} favoriteMovieList = {favoriteMovieList}/>
-
-
-
-
+        <h3>Delete Account</h3>
+      </div>
+      <DeleteAccountButton
+        username={user.username}
+        token={token}
+        onLoggedOut={onLoggedOut}
+      />
+      <hr />
+      <FavoriteMovies
+        user={user}
+        favoriteMovies={favoriteMovies}
+        handleFavoriteToggle={handleFavoriteToggle}
+        favoriteMovieList={favoriteMovieList}
+      />
     </>
   );
 };
