@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import UserInfo from "./user-info";
+import DeleteAccountButton from './DeleteAccountButton'; 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import { Row, Col, Button, } from "react-bootstrap";
+import { Row, Col, Button, Modal } from "react-bootstrap";
+import { MovieCard } from '../movie-card/movie-card';
 
 export const ProfileView = ({ users = [] }) => {
   const { userId } = useParams();
@@ -68,6 +70,34 @@ export const ProfileView = ({ users = [] }) => {
 
   console.log(favoriteMovieList);
 
+  const handleFavoriteToggle = async (movieId, isFavorite) => {
+    const storedToken = localStorage.getItem("token");
+    const username = user.username; // Adjust this if user identification is different
+
+    try {
+      const headers = {
+        Authorization: `Bearer ${storedToken}`,
+      };
+
+      if (isFavorite) {
+        await axios.post(
+          `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
+          {},
+          { headers }
+        );
+      } else {
+        await axios.delete(
+          `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
+          { headers }
+        );
+      }
+
+      // Re-fetch or update local state to reflect changes
+    } catch (error) {
+      console.error("Error updating favorite status:", error);
+    }
+  };
+
  
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = () => {
@@ -116,6 +146,8 @@ export const ProfileView = ({ users = [] }) => {
     setToken(null);
     localStorage.clear();
   };
+  
+  
 
 
  
@@ -127,9 +159,13 @@ export const ProfileView = ({ users = [] }) => {
 
   return (
     <>
-      <div>
+     <div>
         <UserInfo name={user.name} email={user.email} />
       </div>
+    <div>
+      <h2>Profile Settings</h2>
+    </div>
+     
       <Form.Group className="mb-3">
         <Form.Label>Name</Form.Label>
         <Form.Control
@@ -170,15 +206,42 @@ export const ProfileView = ({ users = [] }) => {
       <Button onClick={isEditing ? handleSaveClick : handleEditClick}>
         {isEditing ? "Save" : "Edit Profile"}
       </Button>
+      <hr/>
+
+      <div>
+      <h3>Delete Account</h3>
+    </div>
+    <DeleteAccountButton username={user.username} token={token} />
+
 
 
       <>
+      <Row className="justify-content-md-center mt-5">
+        {favoriteMovieList.map((movie) => (          
+          <Col className="mb-5" key={movie.id} md={4}>
+            <MovieCard
+              movie={movie}
+              isFavorite={favoriteMovies.includes(String(movie.id))} // Assuming favoriteMovies is an array of movie IDs
+              onFavoriteToggle={handleFavoriteToggle}
+              username={user.username}
+            />
+          </Col>
+         
+          
+        ))} </Row>
+      </>
+    </>
+  );
+};
+
+
+{/* <>
       <h2>Favorite Movies</h2>
       {favoriteMovies.length === 0 ? (
           <p>No favorite movies found.</p>
         ) : (
           favoriteMovieList.map((movie) => (
-            <Col className="mb-5" key={movie.id} md={3}>
+            <Col className="mb-5" key={movie.id} md={4}>
             <Card className="h-100" key={movie.id}>
             <Card.Img variant="top" src={movie.image} alt={movie.title} />
             <Card.Body>
@@ -192,12 +255,8 @@ export const ProfileView = ({ users = [] }) => {
           </Col>
           ))
         )}
-      </>
+      </> */}
 
-
-    </>
-  );
-};
 
       {/* <div>
         <h2>Favorite Movies</h2>
