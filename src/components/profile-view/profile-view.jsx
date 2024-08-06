@@ -4,6 +4,7 @@ import UserInfo from "./user-info";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { Row, Col, Button, } from "react-bootstrap";
 
 export const ProfileView = ({ users = [] }) => {
   const { userId } = useParams();
@@ -167,7 +168,36 @@ export const ProfileView = ({ users = [] }) => {
         {isEditing ? "Save" : "Edit Profile"}
       </Button>
 
-      <div>
+
+      <>
+      <h2>Favorite Movies</h2>
+      {favoriteMovies.length === 0 ? (
+          <p>No favorite movies found.</p>
+        ) : (
+          favoriteMovieList.map((movie) => (
+            // const movies = movies.find((m) => m._id === movie);
+            <Col className="mb-5" key={movie.id} md={3}>
+            <Card className="h-100" key={movie.id}>
+            <Card.Img variant="top" src={movie.image} alt={movie.title} />
+            <Card.Body>
+              <Card.Title>
+                <Link to={`/movies/${movie._id}`} style={{ textDecoration: 'none' }}>
+                  {movie.title}
+                </Link>
+              </Card.Title>
+            </Card.Body>
+          </Card>
+          </Col>
+          ))
+        )}
+      </>
+
+
+    </>
+  );
+};
+
+      {/* <div>
         <h2>Favorite Movies</h2>
 
         {favoriteMovies.length === 0 ? (
@@ -183,7 +213,4 @@ export const ProfileView = ({ users = [] }) => {
             </div>
           ))
         )}
-      </div>
-    </>
-  );
-};
+      </div> */}
