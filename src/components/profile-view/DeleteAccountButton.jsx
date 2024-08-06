@@ -2,30 +2,29 @@ import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-
 const DeleteAccountButton = ({ username, token, onLoggedOut }) => {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const storedToken = localStorage.getItem("token");
 
-
-
-
   const handleDeleteClick = async () => {
     try {
-      const response = await fetch(`https://movie-api-4o5a.onrender.com/users/${username}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://movie-api-4o5a.onrender.com/users/${username}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       // Clear local storage or state if needed
 
       onLoggedOut();
-      navigate('/login');
+      navigate("/login");
     } catch (error) {
       console.error("Error deleting account:", error);
       // Optionally handle errors here
@@ -47,10 +46,13 @@ const DeleteAccountButton = ({ username, token, onLoggedOut }) => {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             No
           </Button>
-          <Button variant="danger" onClick={() => {
-            handleDeleteClick();
-            setShowModal(false);
-          }}>
+          <Button
+            variant="danger"
+            onClick={() => {
+              handleDeleteClick();
+              setShowModal(false);
+            }}
+          >
             Yes
           </Button>
         </Modal.Footer>
@@ -58,4 +60,4 @@ const DeleteAccountButton = ({ username, token, onLoggedOut }) => {
     </>
   );
 };
-export default DeleteAccountButton
+export default DeleteAccountButton;

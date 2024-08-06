@@ -219,6 +219,9 @@ export const ProfileView = ({ users = [] }) => {
 
 
       <>
+      <div>
+      <h3>Favorite Movies</h3>
+      </div>
       <Row className="justify-content-md-center mt-5">
         {favoriteMovieList.map((movie) => (          
           <Col className="mb-5" key={movie.id} md={4}>
