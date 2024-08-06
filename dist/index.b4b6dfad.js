@@ -27288,17 +27288,12 @@ const MainView = ()=>{
             const headers = {
                 Authorization: `Bearer ${storedToken}`
             };
-            if (isFavorite) {
-                await (0, _axiosDefault.default).post(`https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`, {}, {
-                    headers
-                });
-                window.location.reload();
-            } else {
-                await (0, _axiosDefault.default).delete(`https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`, {
-                    headers
-                });
-                window.location.reload();
-            }
+            if (isFavorite) await (0, _axiosDefault.default).post(`https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`, {}, {
+                headers
+            });
+            else await (0, _axiosDefault.default).delete(`https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`, {
+                headers
+            });
         // Re-fetch or update local state to reflect changes
         } catch (error) {
             console.error("Error updating favorite status:", error);

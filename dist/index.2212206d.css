@@ -13383,6 +13383,11 @@ input:focus, textarea:focus {
   border: 1px solid #3c3c3c;
 }
 
+.modal {
+  color: #1f1f1f;
+  border: 1px solid #3c3c3c;
+}
+
 .navbar {
   background-color: #722e2e;
   border-bottom: 1px solid #3c3c3c;
