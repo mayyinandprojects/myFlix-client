@@ -43655,7 +43655,7 @@ $RefreshReg$(_c, "ProfileView");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","@parcel/transformer-js/src/esmodule-helpers.js":"iaKMe","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"gmTsr","./user-info":"66eot","react-bootstrap/Card":"lAynp","react-bootstrap":"3AD9A","../movie-card/movie-card":"bwuIu","./DeleteAccountButton":"hbevE","axios":"jo6P5"}],"66eot":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","react-router-dom":"9xmpe","./user-info":"66eot","./DeleteAccountButton":"hbevE","react-bootstrap/Form":"iBZ80","react-bootstrap/Button":"aPzUt","react-bootstrap/Card":"lAynp","react-bootstrap":"3AD9A","../movie-card/movie-card":"bwuIu","axios":"jo6P5","@parcel/transformer-js/src/esmodule-helpers.js":"iaKMe","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"gmTsr"}],"66eot":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$1330 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
