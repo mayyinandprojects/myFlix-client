@@ -58,14 +58,17 @@ export const ProfileView = ({ users = [] }) => {
       });
   }, [token]);
 
-  console.log(movies);
-  console.log(favoriteMovies);
+  // console.log(movies);
+  // console.log(favoriteMovies);
+
 
   const favoriteMovieList = movies.filter(
     (m) => favoriteMovies.includes(String(m.id)) // Convert to string if necessary
   );
 
   console.log(favoriteMovieList);
+
+ 
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = () => {
     setIsEditing(true);
@@ -175,13 +178,12 @@ export const ProfileView = ({ users = [] }) => {
           <p>No favorite movies found.</p>
         ) : (
           favoriteMovieList.map((movie) => (
-            // const movies = movies.find((m) => m._id === movie);
             <Col className="mb-5" key={movie.id} md={3}>
             <Card className="h-100" key={movie.id}>
             <Card.Img variant="top" src={movie.image} alt={movie.title} />
             <Card.Body>
               <Card.Title>
-                <Link to={`/movies/${movie._id}`} style={{ textDecoration: 'none' }}>
+                <Link to={`/movies/${movie.id}`} style={{ textDecoration: 'none' }}>
                   {movie.title}
                 </Link>
               </Card.Title>
