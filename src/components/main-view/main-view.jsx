@@ -8,7 +8,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
-import axios from 'axios';
+import axios from "axios";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -45,12 +45,14 @@ export const MainView = () => {
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           {},
           { headers }
-        );window.location.reload(); 
+        );
+        window.location.reload();
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
-        );window.location.reload(); 
+        );
+        window.location.reload();
       }
 
       // Re-fetch or update local state to reflect changes
@@ -123,17 +125,14 @@ export const MainView = () => {
     return <div>Error: {error}</div>;
   }
 
-
-  
   useEffect(() => {
     if (user) {
       setFavoriteMovies(user.favorite_movies);
     }
   }, [user]);
-//   console.log(movies);
-//  console.log(users);
-console.log(movies);
-
+  //   console.log(movies);
+  //  console.log(users);
+  console.log(movies);
 
   return (
     <BrowserRouter>

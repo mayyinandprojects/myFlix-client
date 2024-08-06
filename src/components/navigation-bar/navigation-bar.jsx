@@ -1,13 +1,8 @@
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
-
-
-
 export const NavigationBar = ({ user, onLoggedOut }) => {
-
   const navigate = useNavigate();
-
 
   const handleMovielistClick = (event) => {
     event.preventDefault(); // Prevent the default link behavior
@@ -21,7 +16,6 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
     window.location.reload(); // Reload the page
   };
 
-
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
@@ -33,9 +27,19 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
           <Nav className="me-auto">
             {user && user._id && (
               <>
-                <Nav.Link as={Link} to="/favoritemovies">Favorite Movies</Nav.Link>
-                <Nav.Link as={Link} to={`/users/${encodeURIComponent(user._id)}`}onClick={handleProfileClick}>Profile</Nav.Link>
-                <Nav.Link as={Link} to="/" onClick={onLoggedOut}>Log Out</Nav.Link>
+                <Nav.Link as={Link} to="/favoritemovies">
+                  Favorite Movies
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to={`/users/${encodeURIComponent(user._id)}`}
+                  onClick={handleProfileClick}
+                >
+                  Profile
+                </Nav.Link>
+                <Nav.Link as={Link} to="/" onClick={onLoggedOut}>
+                  Log Out
+                </Nav.Link>
               </>
             )}
           </Nav>
