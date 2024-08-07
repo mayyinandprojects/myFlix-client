@@ -3,11 +3,11 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Row, Col, Button } from "react-bootstrap";
 
-function UpdateUser({user, handleChange, handleSaveClick, handleEditClick, isEditing}) {
+function UpdateUser({user, handleChange, handleSaveClick, handleEditClick, isEditing, editedUser}) {
   return (
     <>
       <div>
-        <h2>Profile Settings</h2>
+        <h2>Update Profile</h2>
       </div>
 
       <Form.Group className="mb-3">

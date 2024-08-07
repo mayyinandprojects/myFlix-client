@@ -1,10 +1,11 @@
+//parentcomponent
 import React, { useState, useEffect } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import UserInfo from "./user-info";
 import DeleteAccountButton from "./DeleteAccountButton";
 import FavoriteMovies from "./favorite-movies";
-import UpdateUser from "./update-user"
-
+import UpdateUser from "./update-user";
+import { Card, Container, Row, Col } from "react-bootstrap";
 
 import axios from "axios";
 
@@ -61,7 +62,7 @@ export const ProfileView = ({ users = [] }) => {
   }, [token]);
 
   const favoriteMovieList = movies.filter(
-    (m) => favoriteMovies.includes(String(m.id)) // Convert to string 
+    (m) => favoriteMovies.includes(String(m.id)) // Convert to string
   );
 
   console.log(favoriteMovieList);
@@ -151,34 +152,48 @@ export const ProfileView = ({ users = [] }) => {
 
   return (
     <>
-      <div>
-        <UserInfo name={user.name} email={user.email} />
-      </div>
-
-      <hr />
-      <UpdateUser 
-        user = {user} 
-        handleChange ={handleChange} 
-        handleSaveClick={handleSaveClick}
-        handleEditClick = {handleEditClick} 
-        isEditing={isEditing}
-      />
-      <hr />
-      <div>
-        <h3>Delete Account</h3>
-      </div>
-      <DeleteAccountButton
-        username={user.username}
-        token={token}
-        onLoggedOut={onLoggedOut}
-      />
-      <hr />
-      <FavoriteMovies
-        user={user}
-        favoriteMovies={favoriteMovies}
-        handleFavoriteToggle={handleFavoriteToggle}
-        favoriteMovieList={favoriteMovieList}
-      />
+      <Container>
+        <Row>
+          
+          <Col xs={12} sm={4}>
+          <Card>
+            <Card.Body>
+            <UserInfo name={user.name} email={user.email} />
+            </Card.Body>
+            </Card>
+          </Col>
+          <Col xs={12} sm={8}>
+          {/* <Card>
+          <Card.Body> */}
+            <UpdateUser
+              user={user}
+              handleChange={handleChange}
+              handleSaveClick={handleSaveClick}
+              handleEditClick={handleEditClick}
+              isEditing={isEditing}
+              editedUser={editedUser}
+            />
+            {/* </Card.Body>
+            </Card> */}
+            
+            <hr/>
+            <h3>Delete Account</h3>
+            <DeleteAccountButton
+          username={user.username}
+          token={token}
+          onLoggedOut={onLoggedOut}
+        />
+          </Col>
+        </Row>
+        
+        <hr />
+        <FavoriteMovies
+          user={user}
+          favoriteMovies={favoriteMovies}
+          handleFavoriteToggle={handleFavoriteToggle}
+          favoriteMovieList={favoriteMovieList}
+        />
+      </Container>
     </>
   );
 };
