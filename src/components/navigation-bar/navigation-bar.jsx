@@ -4,12 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 export const NavigationBar = ({ user, onLoggedOut }) => {
   const navigate = useNavigate();
 
-  const handleMovielistClick = (event) => {
-    event.preventDefault(); // Prevent the default link behavior
-    navigate(`/`); // Navigate to the profile route
-    window.location.reload(); // Reload the page
-  };
-
   const handleProfileClick = (event) => {
     event.preventDefault(); // Prevent the default link behavior
     navigate(`/users/${encodeURIComponent(user._id)}`); // Navigate to the profile route
@@ -19,7 +13,9 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
   return (
     <Navbar bg="dark" expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/" onClick={handleMovielistClick}>
+        <Navbar.Brand as={Link} to="/" 
+        // onClick={handleMovielistClick}
+        >
           MyFlixDB
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

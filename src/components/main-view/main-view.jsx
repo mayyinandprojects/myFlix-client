@@ -46,12 +46,22 @@ export const MainView = () => {
           {},
           { headers }
         );
+        const user = JSON.parse(localStorage.getItem('user'));
+        user.favorite_movies.push(movieId);
+        localStorage.setItem('user', JSON.stringify(user));
+        setFavoriteMovies([...user.favorite_movies]);
+
         
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
         );
+        const user = JSON.parse(localStorage.getItem('user'));
+        const favorites = user.favorite_movies.filter((id) => id !== movieId);
+        user.favorite_movies = [...favorites];
+        localStorage.setItem('user', JSON.stringify(user));
+        setFavoriteMovies([...favorites]);
        
       }
 
@@ -201,7 +211,13 @@ export const MainView = () => {
                 <Navigate to="/login" replace />
               ) : (
                 <Col md={12}>
-                  <ProfileView users={users} />
+                  <ProfileView 
+                    users={users} 
+                    favoriteMovies={favoriteMovies} 
+                    handleFavoriteToggle={handleFavoriteToggle}
+                    setFavoriteMovies = {setFavoriteMovies}  
+                     />
+
                 </Col>
               )
             }

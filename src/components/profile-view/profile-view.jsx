@@ -9,13 +9,14 @@ import { Card, Container, Row, Col } from "react-bootstrap";
 
 import axios from "axios";
 
-export const ProfileView = ({ users = [] }) => {
+export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle, setFavoriteMovies}) => {
+
   const { userId } = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState(null);
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken);
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
+  // const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
 
@@ -67,35 +68,35 @@ export const ProfileView = ({ users = [] }) => {
 
   console.log(favoriteMovieList);
 
-  const handleFavoriteToggle = async (movieId, isFavorite) => {
-    const storedToken = localStorage.getItem("token");
-    const username = user.username; // Adjust this if user identification is different
+  // const handleFavoriteToggle = async (movieId, isFavorite) => {
+  //   const storedToken = localStorage.getItem("token");
+  //   const username = user.username; // Adjust this if user identification is different
 
-    try {
-      const headers = {
-        Authorization: `Bearer ${storedToken}`,
-      };
+  //   try {
+  //     const headers = {
+  //       Authorization: `Bearer ${storedToken}`,
+  //     };
 
-      if (isFavorite) {
-        await axios.post(
-          `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
-          {},
-          { headers }
-        );
-        window.location.reload();
-      } else {
-        await axios.delete(
-          `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
-          { headers }
-        );
-        window.location.reload();
-      }
+  //     if (isFavorite) {
+  //       await axios.post(
+  //         `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
+  //         {},
+  //         { headers }
+  //       );
+  //       window.location.reload();
+  //     } else {
+  //       await axios.delete(
+  //         `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
+  //         { headers }
+  //       );
+  //       window.location.reload();
+  //     }
 
-      // Re-fetch or update local state to reflect changes
-    } catch (error) {
-      console.error("Error updating favorite status:", error);
-    }
-  };
+  //     // Re-fetch or update local state to reflect changes
+  //   } catch (error) {
+  //     console.error("Error updating favorite status:", error);
+  //   }
+  // };
 
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = () => {
