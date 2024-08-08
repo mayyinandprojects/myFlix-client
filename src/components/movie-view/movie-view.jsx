@@ -1,31 +1,87 @@
+import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 import "./movie-view.scss";
-import Col from 'react-bootstrap/Col'
-import Row from "react-bootstrap/Row";
+import { Row, Col, Button } from "react-bootstrap";
 
-export const MovieView = ({ movie, onBackClick }) => {
-    return (
-      <Row className="justify-content-md-center mt-5">
-         <Col md={6}>
-          <img src={movie.image} />
-          </Col>
-        <Col md={6}>
-        <div>
-          <span>Title: </span>
-          <span>{movie.title}</span>
-        </div>
-        <div>
-          <span>Director: </span>
-          <span>{movie.directors}</span>
-        </div>
-  
-        <button 
-        onClick={onBackClick} className="back-button md={3}"
-        style={{ cursor: "pointer" }}
-        >Back</button>
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+  const movie = movies.find((b) => b.id === movieId);
+
+  return (
+<>
+  <Row className="mb-4">
+    <Col md={6}>
+      <img className="w-100" src={movie.image} alt={movie.title} />
+    </Col>
+    <Col md={6}>
+      <Row className="mb-3">
+        <Col>
+          <h2>Movie Details</h2>
         </Col>
       </Row>
-    );
-  };
+      <Row className="mb-2">
+        <Col xs="auto" className="font-weight-bold">Title:</Col>
+        <Col>{movie.title}</Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs="auto" className="font-weight-bold">Description:</Col>
+        <Col>{movie.description}</Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs="auto" className="font-weight-bold">Director:</Col>
+        <Col>{movie.directors}</Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs="auto" className="font-weight-bold">Genre:</Col>
+        <Col>{movie.genre}</Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs="auto" className="font-weight-bold">Actors:</Col>
+        <Col>{movie.actors}</Col>
+      </Row>
+      <Row>
+        <Col className="text-left">
+          <Link to={`/`}>
+            <Button className="back-button">Back</Button>
+          </Link>
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+</>
+  );
+};
+
+// import { useParams } from "react-router";
+// import { Link } from "react-router-dom";
+// import "./movie-view.scss";
+// import Col from 'react-bootstrap/Col'
+// import Row from "react-bootstrap/Row";
+
+// export const MovieView = ({ movie, onBackClick }) => {
+//     return (
+//       <Row className="justify-content-md-center mt-5">
+//          <Col md={6}>
+//           <img src={movie.image} />
+//           </Col>
+//         <Col md={6}>
+//         <div>
+//           <span>Title: </span>
+//           <span>{movie.title}</span>
+//         </div>
+//         <div>
+//           <span>Director: </span>
+//           <span>{movie.directors}</span>
+//         </div>
+  
+//         <button 
+//         onClick={onBackClick} className="back-button md={3}"
+//         style={{ cursor: "pointer" }}
+//         >Back</button>
+//         </Col>
+//       </Row>
+//     );
+//   };
   //add the function prop onBackClick:
   //export const MovieView = ({ movie, onBackClick }) => {
   //call the function prop onBackClick when the button click occurs:
