@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Alert from 'react-bootstrap/Alert';
 
 export const LoginView = ({ onLoggedIn }) => {
    // Prevent the default form submission behavior
@@ -66,11 +65,7 @@ export const LoginView = ({ onLoggedIn }) => {
         <Button variant="primary" className="mt-3" type="submit">
           Submit
         </Button>
-        <Alert className = "mt-5">
-        If you would like to test the website, you may login with the username Hhl23jp231 and the password THJ234jkaf
-        </Alert>
       </Form>
-
     );
   };
   
