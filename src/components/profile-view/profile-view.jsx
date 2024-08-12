@@ -71,7 +71,7 @@ export const ProfileView = ({
 
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = (event) => {
-    event.preventDefault();    
+    event.preventDefault();
     setIsEditing(true);
     setEditedUser({ ...user });
   };
@@ -87,8 +87,6 @@ export const ProfileView = ({
   // Handle save action
   const handleSaveClick = async (event) => {
     try {
-      
-
       //event.preventDefault();
 
       const response = await fetch(
@@ -150,20 +148,19 @@ export const ProfileView = ({
               isEditing={isEditing}
               editedUser={editedUser}
             />
-            
 
             <hr />
             <Row className="d-flex justify-content-between align-items-center">
-            <Col>
-            <h3>Delete Account</h3>
-            </Col>
-            <Col className="d-flex justify-content-end">
-            <DeleteAccountButton
-              username={user.username}
-              token={token}
-              onLoggedOut={onLoggedOut}
-            />
-            </Col>
+              <Col>
+                <h3>Delete Account</h3>
+              </Col>
+              <Col className="d-flex justify-content-end">
+                <DeleteAccountButton
+                  username={user.username}
+                  token={token}
+                  onLoggedOut={onLoggedOut}
+                />
+              </Col>
             </Row>
           </Col>
         </Row>

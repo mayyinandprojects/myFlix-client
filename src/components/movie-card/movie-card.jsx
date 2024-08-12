@@ -23,8 +23,9 @@ export const MovieCard = ({
       <Card.Img variant="top" src={movie.image} />
       <Card.Body>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-          {/* <Button variant="link">Open</Button> */}
-          <Card.Title><h3>{movie.title}</h3></Card.Title>
+          <Card.Title>
+            <h3>{movie.title}</h3>
+          </Card.Title>
         </Link>
         <Card.Text>{movie.directors}</Card.Text>
 
@@ -48,7 +49,7 @@ MovieCard.propTypes = {
   }).isRequired,
   isFavorite: PropTypes.bool.isRequired,
   onFavoriteToggle: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired, //addusername proptype
+  username: PropTypes.string.isRequired,
 };
 
 // in React, the only component that can

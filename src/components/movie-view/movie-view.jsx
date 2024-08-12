@@ -53,6 +53,25 @@ export const MovieView = ({ movies }) => {
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //add the function prop onBackClick:
   //export const MovieView = ({ movie, onBackClick }) => {
   //call the function prop onBackClick when the button click occurs:

@@ -1,4 +1,4 @@
-import{ useState } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
@@ -17,15 +17,15 @@ export const SignupView = () => {
       username: username,
       password: password,
       email: email,
-      birthday: birthday
+      birthday: birthday,
     };
 
     fetch("https://movie-api-4o5a.onrender.com/users", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).then((response) => {
       if (response.ok) {
         alert("Signup successful");
@@ -39,19 +39,19 @@ export const SignupView = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formName">
-      <Form.Label>Name:</Form.Label>
-      <Form.Control
+        <Form.Label>Name:</Form.Label>
+        <Form.Control
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
           minLength="3"
-        />     
+        />
       </Form.Group>
 
       <Form.Group controlId="formUsername">
-      <Form.Label>Username:</Form.Label>
-      <Form.Control
+        <Form.Label>Username:</Form.Label>
+        <Form.Control
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -61,8 +61,8 @@ export const SignupView = () => {
       </Form.Group>
 
       <Form.Group controlId="formPassword">
-      <Form.Label>Password:</Form.Label>
-      <Form.Control
+        <Form.Label>Password:</Form.Label>
+        <Form.Control
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -71,8 +71,8 @@ export const SignupView = () => {
       </Form.Group>
 
       <Form.Group controlId="formEmail">
-      <Form.Label>Email:</Form.Label>
-      <Form.Control
+        <Form.Label>Email:</Form.Label>
+        <Form.Control
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -80,17 +80,18 @@ export const SignupView = () => {
         />
       </Form.Group>
 
-
       <Form.Group controlId="formDate">
-      <Form.Label>Birthday:</Form.Label>
-      <Form.Control
+        <Form.Label>Birthday:</Form.Label>
+        <Form.Control
           type="date"
           value={birthday}
           onChange={(e) => setBirthday(e.target.value)}
           required
         />
       </Form.Group>
-      <Button variant="primary" className="mt-3" type="submit">Submit</Button>
-      </Form>
+      <Button variant="primary" className="mt-3" type="submit">
+        Submit
+      </Button>
+    </Form>
   );
 };

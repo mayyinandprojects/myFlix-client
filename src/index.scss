@@ -1,7 +1,7 @@
 $primary-color: #1f1f1f;
 $secondary-color: #722e2e;
 $text-color: #e0e0e0;
-$accent-color: #007bff; 
+$accent-color: #007bff;
 $border-color: #3c3c3c;
 $hover-color: #551919;
 $link-color: #80bdff;
@@ -10,9 +10,14 @@ $input-background-color: #333;
 $input-text-color: #e0e0e0;
 
 body {
-  min-height: 100vh; 
-  background: linear-gradient(135deg, $secondary-color, $primary-color 60%, #000000);
-  background-size: cover; 
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    $secondary-color,
+    $primary-color 60%,
+    #000000
+  );
+  background-size: cover;
   color: $text-color;
 }
 

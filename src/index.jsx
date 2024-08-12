@@ -24,6 +24,11 @@ const root = createRoot(container);
 // Tells React to render your app in the root DOM element
 root.render(<MyFlixApplication />);
 
+
+
+
+
+
 //import { MainView } from './components/main-view/main-view';
 //above follows the syntax import { ComponentName } from '[path to the component file]';
 //MainView component is where most of the UI coding will be. It’s better this way because src/index.jsx will only have one job, which is to bootstrap the React code and nothing else.

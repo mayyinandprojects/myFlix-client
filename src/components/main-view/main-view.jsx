@@ -227,8 +227,7 @@ export const MainView = () => {
                 ) : (
                   <>
                     <Row className="justify-content-md-center mt-2">
-                      <Col xs={12} className="text-center mb-2"
-                      >
+                      <Col xs={12} className="text-center mb-2">
                         <h1>Movie List</h1>
                       </Col>
                     </Row>
@@ -274,50 +273,11 @@ export const MainView = () => {
             }
           />
         </Routes>
-
-        {/* {user && (
-          <Col xs={12} className="text-left mt-3 mb-3">
-            <Button
-              onClick={() => {
-                setUser(null);
-                setToken(null);
-                localStorage.clear();
-              }}
-            >
-              Logout
-            </Button>
-          </Col>
-        )} */}
       </Row>
     </BrowserRouter>
   );
 };
 
-// return (
-//   <div>
-//     {movies.map((movie) => (
-//       <MovieCard
-//         key={movie.id}
-//         movie={movie}
-//         onMovieClick={(newSelectedMovie) => {
-//           setSelectedMovie(newSelectedMovie);
-//         }}
-//       />
-//     ))}
-//     <button onClick={() => { setUser(null); setToken(null); localStorage.clear(); }}>Logout</button>
-//   </div>
-// );
-//};
-
-//export keyword exposes the MainView component, enabling the component to be imported in other files.
-//inside the MainView is JSX, similar to HTML
-//A Component Can Only Have One Root Element e.g. if use <div> that has to be used first, not <button>
-//MainView component is where most of the UI coding will be.
-// the alternative to arrow function would be:
-// function MainView() {
-//   ...
-// }
-// export { MainView };
 //Instead of a <div> or <span>, you can also use a piece of built-in React markup: <React.Fragment></React.Fragment>.
 //to use <React.Fragment> make sure to import React from "react";
 //alternatively, <></> can be used to replace <React.Fragment>. supposedly <React.Fragment> is too long or undwieldy so this short-hand exists.
