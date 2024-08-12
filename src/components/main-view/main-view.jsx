@@ -260,18 +260,6 @@ export const MainView = () => {
               )
             }
           />
-          <Route
-            path="/favoritemovies"
-            element={
-              user ? (
-                <Col md={5}>
-                  <p>SITE IN PROGRESS</p>
-                </Col>
-              ) : (
-                <Navigate to="/login" />
-              )
-            }
-          />
         </Routes>
       </Row>
     </BrowserRouter>
