@@ -1,6 +1,6 @@
 # myFlixDB
 
-myFlixDB is a prototype web application that allows users to browse, view details, and manage their favorite movies. Users can sign up, log in, view a list of movies, see details about each movie, and manage their profile and favorite movies.
+myFlixDB is a demo web application that is built with React that allows users to browse, view details, and manage their favorite movies. Users can sign up, log in, view a list of movies, see details about each movie, and manage their profile and favorite movies.
 
 
 ## Features
@@ -12,7 +12,7 @@ myFlixDB is a prototype web application that allows users to browse, view detail
 - View and edit user profiles
 
 ## Live Demo
-https://myflixmoviedatabase.netlify.app/login
+https://myflixmoviedatabase.netlify.app
 
 ## Usage
 

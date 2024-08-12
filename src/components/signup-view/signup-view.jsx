@@ -92,6 +92,9 @@ export const SignupView = () => {
       <Button variant="primary" className="mt-3" type="submit">
         Submit
       </Button>
+      <Alert className="text-center">
+      ⚠️ This project is built for demo purpose. Please DO NOT use your real information! 
+      </Alert>
     </Form>
   );
 };
