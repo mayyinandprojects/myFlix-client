@@ -11,6 +11,9 @@ myFlixDB is a prototype web application that allows users to browse, view detail
 - Manage a list of favorite movies
 - View and edit user profiles
 
+## Live Demo
+https://myflixmoviedatabse.netlify.app/login
+
 ## Usage
 
 1. **Sign Up or Log In:**
@@ -42,6 +45,7 @@ myFlixDB is a prototype web application that allows users to browse, view detail
 - **MovieCard:** Displays a brief overview of each movie.
 - **MovieView:** Shows detailed information about a specific movie.
 - **ProfileView:** Displays and manages user information and favorite movies.
+
 
 ## Dependencies
 
