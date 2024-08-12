@@ -11,10 +11,12 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
   };
 
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar expand="lg">
       <Container>
-        <Navbar.Brand as={Link} to="/" 
-        // onClick={handleMovielistClick}
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          // onClick={handleMovielistClick}
         >
           MyFlixDB
         </Navbar.Brand>

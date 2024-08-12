@@ -1,27 +1,28 @@
 //parentcomponent
 import React, { useState, useEffect } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import UserInfo from "./user-info";
 import DeleteAccountButton from "./DeleteAccountButton";
 import FavoriteMovies from "./favorite-movies";
 import UpdateUser from "./update-user";
 import { Card, Container, Row, Col } from "react-bootstrap";
 
-import axios from "axios";
-
-export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle, setFavoriteMovies}) => {
-
+export const ProfileView = ({
+  users = [],
+  favoriteMovies,
+  handleFavoriteToggle,
+  setFavoriteMovies,
+}) => {
   const { userId } = useParams();
+  // Find the user by ID
+  const user = users.find((u) => u.userId === userId);
   const [isEditing, setIsEditing] = useState(false);
-  const [editedUser, setEditedUser] = useState(null);
+  const [editedUser, setEditedUser] = useState(user);
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken);
   // const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
-
-  // Find the user by ID
-  const user = users.find((u) => u.userId === userId);
 
   useEffect(() => {
     if (user) {
@@ -68,38 +69,9 @@ export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle,
 
   console.log(favoriteMovieList);
 
-  // const handleFavoriteToggle = async (movieId, isFavorite) => {
-  //   const storedToken = localStorage.getItem("token");
-  //   const username = user.username; // Adjust this if user identification is different
-
-  //   try {
-  //     const headers = {
-  //       Authorization: `Bearer ${storedToken}`,
-  //     };
-
-  //     if (isFavorite) {
-  //       await axios.post(
-  //         `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
-  //         {},
-  //         { headers }
-  //       );
-  //       window.location.reload();
-  //     } else {
-  //       await axios.delete(
-  //         `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
-  //         { headers }
-  //       );
-  //       window.location.reload();
-  //     }
-
-  //     // Re-fetch or update local state to reflect changes
-  //   } catch (error) {
-  //     console.error("Error updating favorite status:", error);
-  //   }
-  // };
-
   // Initialize editedUser with user data when switching to edit mode
-  const handleEditClick = () => {
+  const handleEditClick = (event) => {
+    event.preventDefault();    
     setIsEditing(true);
     setEditedUser({ ...user });
   };
@@ -113,8 +85,12 @@ export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle,
   };
 
   // Handle save action
-  const handleSaveClick = async () => {
+  const handleSaveClick = async (event) => {
     try {
+      
+
+      //event.preventDefault();
+
       const response = await fetch(
         `https://movie-api-4o5a.onrender.com/users/${user.username}`,
         {
@@ -135,6 +111,7 @@ export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle,
       Object.assign(user, editedUser);
 
       setIsEditing(false);
+      console.log(isEditing);
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -155,16 +132,15 @@ export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle,
     <>
       <Container>
         <Row>
-          
           <Col xs={12} sm={4}>
-          <Card>
-            <Card.Body>
-            <UserInfo name={user.name} email={user.email} />
-            </Card.Body>
+            <Card>
+              <Card.Body>
+                <UserInfo name={user.name} email={user.email} />
+              </Card.Body>
             </Card>
           </Col>
           <Col xs={12} sm={8}>
-          {/* <Card>
+            {/* <Card>
           <Card.Body> */}
             <UpdateUser
               user={user}
@@ -174,19 +150,18 @@ export const ProfileView = ({ users = [],  favoriteMovies, handleFavoriteToggle,
               isEditing={isEditing}
               editedUser={editedUser}
             />
-            {/* </Card.Body>
-            </Card> */}
             
-            <hr/>
+
+            <hr />
             <h3>Delete Account</h3>
             <DeleteAccountButton
-          username={user.username}
-          token={token}
-          onLoggedOut={onLoggedOut}
-        />
+              username={user.username}
+              token={token}
+              onLoggedOut={onLoggedOut}
+            />
           </Col>
         </Row>
-        
+
         <hr />
         <FavoriteMovies
           user={user}

@@ -46,23 +46,20 @@ export const MainView = () => {
           {},
           { headers }
         );
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         user.favorite_movies.push(movieId);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
         setFavoriteMovies([...user.favorite_movies]);
-
-        
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
         );
-        const user = JSON.parse(localStorage.getItem('user'));
+        const user = JSON.parse(localStorage.getItem("user"));
         const favorites = user.favorite_movies.filter((id) => id !== movieId);
         user.favorite_movies = [...favorites];
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem("user", JSON.stringify(user));
         setFavoriteMovies([...favorites]);
-       
       }
 
       // Re-fetch or update local state to reflect changes
@@ -92,7 +89,7 @@ export const MainView = () => {
           genre: movie.genre?.name || "Unknown Genre",
           description: movie.description,
           featured: movie.featured,
-          actors: movie.actors,
+          actors: movie.actors?.join(", ") || "Unknown Actors",
           releaseYear: movie.release_year,
           rating: movie.rating,
         }));
@@ -211,13 +208,12 @@ export const MainView = () => {
                 <Navigate to="/login" replace />
               ) : (
                 <Col md={12}>
-                  <ProfileView 
-                    users={users} 
-                    favoriteMovies={favoriteMovies} 
+                  <ProfileView
+                    users={users}
+                    favoriteMovies={favoriteMovies}
                     handleFavoriteToggle={handleFavoriteToggle}
-                    setFavoriteMovies = {setFavoriteMovies}  
-                     />
-
+                    setFavoriteMovies={setFavoriteMovies}
+                  />
                 </Col>
               )
             }
