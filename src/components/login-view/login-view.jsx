@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from 'react-bootstrap/Alert';
 
 export const LoginView = ({ onLoggedIn }) => {
    // Prevent the default form submission behavior

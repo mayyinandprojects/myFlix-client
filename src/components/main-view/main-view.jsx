@@ -8,6 +8,7 @@ import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
+import Alert from "react-bootstrap/Alert";
 import axios from "axios";
 
 export const MainView = () => {
@@ -215,24 +216,7 @@ export const MainView = () => {
             element={
               user ? (
                 filteredMovies.length === 0 ? (
-                  <>                  
-                  <Row className="justify-content-md-center mt-2">
-                      <Col xs={12} className="text-center mb-2">
-                        <h1>Movie List</h1>
-                        <input
-                          type="text"
-                          placeholder="Filter by title"
-                          value={filter}
-                          onChange={(e) => setFilter(e.target.value)}
-                          className="mb-3"
-                          style={{ width: "60%" }} 
-                        />
-                      </Col>
-                    </Row>
-                    <div>No movies match your search!</div>
-                    </>
-                ) : (
-                <>
+                  <>
                     <Row className="justify-content-md-center mt-2">
                       <Col xs={12} className="text-center mb-2">
                         <h1>Movie List</h1>
@@ -242,7 +226,29 @@ export const MainView = () => {
                           value={filter}
                           onChange={(e) => setFilter(e.target.value)}
                           className="mb-3"
-                          style={{ width: "60%" }} 
+                          style={{ width: "60%" }}
+                        />
+                      </Col>
+                    </Row>
+                    <Alert
+                      style={{ width: "30%" }}
+                      className="mx-auto text-center"
+                    >
+                      No movies match your search!
+                    </Alert>
+                  </>
+                ) : (
+                  <>
+                    <Row className="justify-content-md-center mt-2">
+                      <Col xs={12} className="text-center mb-2">
+                        <h1>Movie List</h1>
+                        <input
+                          type="text"
+                          placeholder="Filter by title"
+                          value={filter}
+                          onChange={(e) => setFilter(e.target.value)}
+                          className="mb-3"
+                          style={{ width: "60%" }}
                         />
                       </Col>
                     </Row>
@@ -269,8 +275,6 @@ export const MainView = () => {
     </BrowserRouter>
   );
 };
-
-
 
 //Instead of a <div> or <span>, you can also use a piece of built-in React markup: <React.Fragment></React.Fragment>.
 //to use <React.Fragment> make sure to import React from "react";
