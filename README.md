@@ -12,7 +12,7 @@ myFlixDB is a prototype web application that allows users to browse, view detail
 - View and edit user profiles
 
 ## Live Demo
-https://myflixmoviedatabse.netlify.app/login
+https://myflixmoviedatabase.netlify.app/login
 
 ## Usage
 
