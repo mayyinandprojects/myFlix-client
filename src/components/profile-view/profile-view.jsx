@@ -153,12 +153,18 @@ export const ProfileView = ({
             
 
             <hr />
+            <Row className="d-flex justify-content-between align-items-center">
+            <Col>
             <h3>Delete Account</h3>
+            </Col>
+            <Col className="d-flex justify-content-end">
             <DeleteAccountButton
               username={user.username}
               token={token}
               onLoggedOut={onLoggedOut}
             />
+            </Col>
+            </Row>
           </Col>
         </Row>
 

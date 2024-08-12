@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Row, Col } from "react-bootstrap";
 
-function UpdateUser({ user, handleChange, handleSaveClick, handleEditClick, isEditing, editedUser }) {
+function UpdateUser({
+  user,
+  handleChange,
+  handleSaveClick,
+  handleEditClick,
+  isEditing,
+  editedUser,
+}) {
+  const nameInputRef = useRef(null); // Create a ref for the name input field
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -11,15 +20,34 @@ function UpdateUser({ user, handleChange, handleSaveClick, handleEditClick, isEd
     }
   };
 
+  useEffect(() => {
+    if (isEditing && nameInputRef.current) {
+      nameInputRef.current.focus(); // Focus the name input field when editing starts
+    }
+  }, [isEditing]);
+
   return (
     <>
-      <div>
-        <h2>Update Profile</h2>
-      </div>
       <Form onSubmit={handleSubmit}>
+        <Row className="d-flex justify-content-between align-items-center">
+          <Col>
+            <h2>Update Profile</h2>
+          </Col>
+          <Col className="d-flex justify-content-end">
+            {isEditing ? (
+              <Button type="submit">Save</Button>
+            ) : (
+              <Button type="button" onClick={handleEditClick}>
+                Edit Profile
+              </Button>
+            )}
+          </Col>
+        </Row>
+
         <Form.Group className="mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control
+            ref={nameInputRef} // Attach the ref to the name input field
             name="name"
             value={isEditing ? editedUser.name : user.name}
             onChange={handleChange}
@@ -59,14 +87,6 @@ function UpdateUser({ user, handleChange, handleSaveClick, handleEditClick, isEd
             required
           />
         </Form.Group>
-
-        {isEditing ? (
-          <Button type="submit">Save</Button>
-        ) : (
-          <Button type="button" onClick={handleEditClick}>
-            Edit Profile
-          </Button>
-        )}
       </Form>
     </>
   );

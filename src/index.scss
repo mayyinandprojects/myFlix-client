@@ -1,26 +1,20 @@
-// $color: steelblue;
-
-// .my-flix {
-//   color: $color;
-// }
-
 $primary-color: #1f1f1f;
 $secondary-color: #722e2e;
 $text-color: #e0e0e0;
 $accent-color: #007bff; 
 $border-color: #3c3c3c;
-$hover-color: f#551919;
+$hover-color: #551919;
 $link-color: #80bdff;
 $link-hover-color: #b3d7ff;
 $input-background-color: #333;
 $input-text-color: #e0e0e0;
 
-
 body {
-  background-color: $primary-color;
+  min-height: 100vh; 
+  background: linear-gradient(135deg, $secondary-color, $primary-color 60%, #000000);
+  background-size: cover; 
   color: $text-color;
 }
-
 
 a {
   color: $link-color;
@@ -29,7 +23,6 @@ a {
     color: $link-hover-color;
   }
 }
-
 
 .btn {
   background-color: $secondary-color;
@@ -40,7 +33,6 @@ a {
     background-color: $hover-color;
   }
 }
-
 
 input,
 textarea {
@@ -54,7 +46,6 @@ textarea {
   }
 }
 
-
 .card {
   background-color: $secondary-color;
   border: 1px solid $border-color;
@@ -65,7 +56,6 @@ textarea {
   border: 1px solid $border-color;
   color: $primary-color;
 }
-
 
 .navbar {
   background-color: $secondary-color;
@@ -81,11 +71,8 @@ textarea {
   }
 }
 
-
 .footer {
   background-color: $secondary-color;
   color: $text-color;
   border-top: 1px solid $border-color;
 }
-
-

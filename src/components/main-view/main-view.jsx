@@ -117,7 +117,7 @@ export const MainView = () => {
           username: user.username,
           password: user.password,
           email: user.email,
-          birthday: user.birthday,
+          birthday: user.birthday.substring(0, 10),
           favoriteMovies: user.favorite_movies || [],
         }));
         setUsers(usersFromApi);
@@ -226,8 +226,9 @@ export const MainView = () => {
                   <div>The list is empty!</div> // Show a message if no movies are available
                 ) : (
                   <>
-                    <Row className="justify-content-md-center mt-5">
-                      <Col xs={12} className="text-center">
+                    <Row className="justify-content-md-center mt-2">
+                      <Col xs={12} className="text-center mb-2"
+                      >
                         <h1>Movie List</h1>
                       </Col>
                     </Row>
