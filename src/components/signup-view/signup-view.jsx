@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 export const SignupView = () => {
   const [name, setName] = useState("");
@@ -89,11 +90,11 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-      <Button variant="primary" className="mt-3" type="submit">
+      <Button variant="primary" className="mt-3 mb-4" type="submit">
         Submit
       </Button>
       <Alert className="text-center">
-      ⚠️ This project is built for demo purpose. Please DO NOT use your real information! 
+      ⚠️ This project is built for demo purposes only. Please DO NOT use your real information! 
       </Alert>
     </Form>
   );
