@@ -1,28 +1,33 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 
 export const LoginView = ({ onLoggedIn }) => {
-   // Prevent the default form submission behavior
+  // Prevent the default form submission behavior
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const handleSubmit = (event) => {
-
     event.preventDefault();
 
     const data = {
       username: username,
-      password: password
+      password: password,
     };
 
-    fetch("https://movie-api-4o5a.onrender.com/login?username="+username+"&password="+password, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
+    fetch(
+      "https://movie-api-4o5a.onrender.com/login?username=" +
+        username +
+        "&password=" +
+        password,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Login response: ", data);
@@ -30,8 +35,7 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
-        } 
-        else {
+        } else {
           alert("No such user");
         }
       })
@@ -39,9 +43,10 @@ export const LoginView = ({ onLoggedIn }) => {
         console.error("Login error: ", e, username, password);
         alert("Something went wrong");
       });
-    };
+  };
 
-    return (
+  return (
+    <>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formUsername">
           <Form.Label>Username:</Form.Label>
@@ -50,10 +55,10 @@ export const LoginView = ({ onLoggedIn }) => {
             value={username}
             onChange={(e) => setusername(e.target.value)}
             required
-            minLength="3" 
+            minLength="3"
           />
         </Form.Group>
-  
+
         <Form.Group controlId="formPassword">
           <Form.Label>Password:</Form.Label>
           <Form.Control
@@ -63,44 +68,59 @@ export const LoginView = ({ onLoggedIn }) => {
             required
           />
         </Form.Group>
-        <Button variant="primary" className="mt-3" type="submit">
+        <Button variant="primary" className="mt-3 mb-3" type="submit">
           Submit
         </Button>
       </Form>
-    );
-  };
-  
-
-
-    // To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
-
-
-
-  //   fetch("https://movie-api-4o5a.onrender.com/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(data)
-  //   }).then((response) => response.json())
-  //   .then((data) => {
-  //     console.log("Login response: ", data);
-  //     if (data.user) {
-  //       onLoggedIn(data.user, data.token);
-  //     } else {
-  //       alert("No such user");
-  //     }
-  //   })
-  //   .catch((e) => {
-  //     alert("Something went wrong");
-  //   });
-  //   // this prevents the default behavior of the form which is to reload the entire page
-  //   event.preventDefault();
-  // };
-  // const data = {
-  //   access: username,
-  //   secret: password,
-  // };
+      <Alert className="text-center">
+      If you would like to use a test account, you can login with <br/>username: Hhl23jp231 and password: THJ234jkaf
+      </Alert>
+    </>
+  );
+};
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// To persist the authentication state between executions of the app, you’ll need to use a mechanism to save the user object and token whether the app is running or not. Then it can be stored as default value of user and taken, see const storedUser at declarations
+
+//   fetch("https://movie-api-4o5a.onrender.com/login", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify(data)
+//   }).then((response) => response.json())
+//   .then((data) => {
+//     console.log("Login response: ", data);
+//     if (data.user) {
+//       onLoggedIn(data.user, data.token);
+//     } else {
+//       alert("No such user");
+//     }
+//   })
+//   .catch((e) => {
+//     alert("Something went wrong");
+//   });
+//   // this prevents the default behavior of the form which is to reload the entire page
+//   event.preventDefault();
+// };
+// const data = {
+//   access: username,
+//   secret: password,
+// };
