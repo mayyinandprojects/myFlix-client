@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
@@ -10,6 +11,7 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
+
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
