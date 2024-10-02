@@ -4,11 +4,7 @@ import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-export const MovieCard = ({
-  movie,
-  isFavorite,
-  onFavoriteToggle,
-}) => {
+export const MovieCard = ({ movie, isFavorite, onFavoriteToggle }) => {
   const [isFav, setIsFav] = useState(isFavorite);
 
   const handleFavoriteClick = () => {
@@ -52,14 +48,9 @@ MovieCard.propTypes = {
   username: PropTypes.string.isRequired,
 };
 
+// Revision notes
 // in React, the only component that can
 //directly change a state is the component that owns that state, in this case, MainView.
-//that's why you cannot directly use:
-//<div
-// onClick={() => {
-//     setSelectedMovie(movie);
-//   }}
-// >
 //The easiest way to
 //pass functions as props is to pass an arrow function that includes the logic inside it.
 // onMovieClick={(newSelectedMovie) => {

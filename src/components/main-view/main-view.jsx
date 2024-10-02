@@ -277,12 +277,10 @@ export const MainView = () => {
   );
 };
 
-//Instead of a <div> or <span>, you can also use a piece of built-in React markup: <React.Fragment></React.Fragment>.
-//to use <React.Fragment> make sure to import React from "react";
-//alternatively, <></> can be used to replace <React.Fragment>. supposedly <React.Fragment> is too long or undwieldy so this short-hand exists.
+//Revision notes:
 //Browsers can't understand JSX directly and will need a compiler like Babel
 //Expressions can be embedded using {} - more notes in my notion page
-//const [movies, setMovies] = useState([]); is same as to:
+//const [movies, setMovies] = useState([]); is same as as:
 //let movies = [];
 // const setMovies = function(newMovieList){
 //   movies = newMoviesList;

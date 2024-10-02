@@ -74,7 +74,6 @@ export const LoginView = ({ onLoggedIn }) => {
           />
         </Form.Group>
 
-        {/* Conditionally render the button or spinner based on the loading state */}
         <div className="mt-3 mb-3">
           {loading ? (
             <Button variant="primary" disabled>

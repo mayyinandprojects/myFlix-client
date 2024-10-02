@@ -1,4 +1,3 @@
-//parentcomponent
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import UserInfo from "./user-info";
@@ -32,6 +31,8 @@ export const ProfileView = ({
       setFavoriteMovies(user.favorite_movies);
     }
   }, [user, setFavoriteMovies]);
+
+  
 
 
   useEffect(() => {
