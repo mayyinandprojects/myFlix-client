@@ -11,24 +11,30 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { SkeletonTheme } from 'react-loading-skeleton';
+
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [error, setError] = useState(null);
   const [user, setUser] = useState(storedUser);
   const [token, setToken] = useState(storedToken);
   const [users, setUsers] = useState([]);
-  const [filter, setFilter] = useState(""); // Filter state
+  const [filter, setFilter] = useState("");
+  const [loading, setLoading] = useState(true);
 
   // Function to handle user logout
   const onLoggedOut = () => {
     setUser(null);
     setToken(null);
+    // window.location.reload();
     localStorage.clear();
+    
   };
 
   const handleFavoriteToggle = async (movieId, isFavorite) => {
@@ -90,10 +96,12 @@ export const MainView = () => {
           rating: movie.rating,
         }));
         setMovies(moviesFromApi);
+        // setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching movies:", error);
         setError(error.message);
+        // setLoading(false);
       });
 
     fetch("https://movie-api-4o5a.onrender.com/users", {
@@ -116,10 +124,12 @@ export const MainView = () => {
           favoriteMovies: user.favorite_movies || [],
         }));
         setUsers(usersFromApi);
+        setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching users:", error);
         setError(error.message);
+        setLoading(false);
       });
   }, [token]);
 
@@ -138,8 +148,12 @@ export const MainView = () => {
   );
 
   return (
+    <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
     <BrowserRouter>
-      <NavigationBar user={user} onLoggedOut={onLoggedOut} />
+      <NavigationBar user={user} 
+      onLoggedOut= {onLoggedOut}
+      // onLoggedOut={() => localStorage.clear()} 
+      />
       <Row className="justify-content-md-center mt-5">
         <Routes>
           <Route
@@ -186,11 +200,13 @@ export const MainView = () => {
             element={
               !user ? (
                 <Navigate to="/login" replace />
-              ) : movies.length === 0 ? (
-                <Col>The list is empty!</Col>
               ) : (
                 <Col md={8}>
-                  <MovieView movies={movies} />
+                  {loading ? (
+                    <Skeleton height={600} width={400} />
+                  ) : (
+                    <MovieView movies={movies} />
+                  )}
                 </Col>
               )
             }
@@ -206,7 +222,6 @@ export const MainView = () => {
                     users={users}
                     favoriteMovies={favoriteMovies}
                     handleFavoriteToggle={handleFavoriteToggle}
-                    setFavoriteMovies={setFavoriteMovies}
                   />
                 </Col>
               )
@@ -237,6 +252,20 @@ export const MainView = () => {
                     >
                       No movies match your search!
                     </Alert>
+                    <Row>
+                      <Col md={3}>
+                        <Skeleton height={550} />
+                      </Col>
+                      <Col md={3}>
+                        <Skeleton height={550} />
+                      </Col>
+                      <Col md={3}>
+                        <Skeleton height={550} />
+                      </Col>
+                      <Col md={3}>
+                        <Skeleton height={550} />
+                      </Col>
+                    </Row>
                   </>
                 ) : (
                   <>
@@ -253,17 +282,28 @@ export const MainView = () => {
                         />
                       </Col>
                     </Row>
-
-                    {filteredMovies.map((movie) => (
-                      <Col className="mb-5" key={movie.id} md={3}>
-                        <MovieCard
-                          movie={movie}
-                          isFavorite={favoriteMovies.includes(String(movie.id))}
-                          onFavoriteToggle={handleFavoriteToggle}
-                          username={user.username}
-                        />
-                      </Col>
-                    ))}
+                    {loading ? (
+                      <Row>
+                        {[...Array(4)].map((_, idx) => (
+                          <Col key={idx} className="mb-5" md={3}>
+                            <Skeleton height={800} width={600} />
+                          </Col>
+                        ))}
+                      </Row>
+                    ) : (
+                      filteredMovies.map((movie) => (
+                        <Col className="mb-5" key={movie.id} md={3}>
+                          <MovieCard
+                            movie={movie}
+                            isFavorite={favoriteMovies.includes(
+                              String(movie.id)
+                            )}
+                            onFavoriteToggle={handleFavoriteToggle}
+                            username={user.username}
+                          />
+                        </Col>
+                      ))
+                    )}
                   </>
                 )
               ) : (
@@ -274,15 +314,14 @@ export const MainView = () => {
         </Routes>
       </Row>
     </BrowserRouter>
+    </SkeletonTheme>
   );
 };
 
-//Instead of a <div> or <span>, you can also use a piece of built-in React markup: <React.Fragment></React.Fragment>.
-//to use <React.Fragment> make sure to import React from "react";
-//alternatively, <></> can be used to replace <React.Fragment>. supposedly <React.Fragment> is too long or undwieldy so this short-hand exists.
+//Revision notes:
 //Browsers can't understand JSX directly and will need a compiler like Babel
 //Expressions can be embedded using {} - more notes in my notion page
-//const [movies, setMovies] = useState([]); is same as to:
+//const [movies, setMovies] = useState([]); is same as as:
 //let movies = [];
 // const setMovies = function(newMovieList){
 //   movies = newMoviesList;
