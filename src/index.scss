@@ -81,3 +81,23 @@ textarea {
   color: $text-color;
   border-top: 1px solid $border-color;
 }
+
+.skeleton {
+  background-color: #ddd;
+  height: 300px;
+  width: 100%;
+  border-radius: 4px;
+  animation: skeleton-loading 1.5s infinite ease-in-out;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #ddd;
+  }
+  50% {
+    background-color: #ccc;
+  }
+  100% {
+    background-color: #ddd;
+  }
+}
