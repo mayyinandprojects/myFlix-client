@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
@@ -11,7 +11,6 @@ import { ProfileView } from "../profile-view/profile-view";
 import { Link } from "react-router-dom";
 import Alert from "react-bootstrap/Alert";
 import axios from "axios";
-
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -45,20 +44,30 @@ export const MainView = () => {
           {},
           { headers }
         );
-        const user = JSON.parse(localStorage.getItem("user"));
-        user.favorite_movies.push(movieId);
-        localStorage.setItem("user", JSON.stringify(user));
-        setFavoriteMovies([...user.favorite_movies]);
+        // const user = JSON.parse(localStorage.getItem("user"));
+        // user.favorite_movies.push(movieId);
+        // localStorage.setItem("user", JSON.stringify(user));
+        // setFavoriteMovies([...user.favorite_movies]);
+        const updatedUser = { ...user };
+        updatedUser.favorite_movies.push(movieId);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser); // Update the user object in state
+        setFavoriteMovies(updatedUser.favorite_movies); // Update favorite movies in state
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
           { headers }
         );
-        const user = JSON.parse(localStorage.getItem("user"));
-        const favorites = user.favorite_movies.filter((id) => id !== movieId);
-        user.favorite_movies = [...favorites];
-        localStorage.setItem("user", JSON.stringify(user));
-        setFavoriteMovies([...favorites]);
+        // const user = JSON.parse(localStorage.getItem("user"));
+        // const favorites = user.favorite_movies.filter((id) => id !== movieId);
+        // user.favorite_movies = [...favorites];
+        // localStorage.setItem("user", JSON.stringify(user));
+        // setFavoriteMovies([...favorites]);
+        const updatedUser = { ...user };
+        updatedUser.favorite_movies = updatedUser.favorite_movies.filter((id) => id !== movieId);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+        setUser(updatedUser); // Update the user object in state
+        setFavoriteMovies(updatedUser.favorite_movies); // Update favorite movies in state
       }
     } catch (error) {
       console.error("Error updating favorite status:", error);
@@ -203,12 +212,23 @@ export const MainView = () => {
                 <Navigate to="/login" replace />
               ) : (
                 <Col md={12}>
-                  <ProfileView
+                  {/* <ProfileView
                     users={users}
                     favoriteMovies={favoriteMovies}
                     handleFavoriteToggle={handleFavoriteToggle}
                     setFavoriteMovies={setFavoriteMovies}
-                  />
+                  /> */}
+                  {user ? (
+                    <ProfileView
+                      users={users}
+                      favoriteMovies={favoriteMovies}
+                      handleFavoriteToggle={handleFavoriteToggle}
+                      setFavoriteMovies={setFavoriteMovies}
+                      movies = {movies}
+                    />
+                  ) : (
+                    <Login /> // Your login component here
+                  )}
                 </Col>
               )
             }

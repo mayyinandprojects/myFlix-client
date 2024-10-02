@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner"; // Import Spinner
 
 export const LoginView = ({ onLoggedIn }) => {
-  // Prevent the default form submission behavior
-  const [username, setusername] = useState("");
-  const [password, setpassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true); // Set loading to true when submitting
 
     const data = {
       username: username,
@@ -30,6 +33,7 @@ export const LoginView = ({ onLoggedIn }) => {
     )
       .then((response) => response.json())
       .then((data) => {
+        setLoading(false); // Stop loading when done
         console.log("Login response: ", data);
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
@@ -40,6 +44,7 @@ export const LoginView = ({ onLoggedIn }) => {
         }
       })
       .catch((e) => {
+        setLoading(false); // Stop loading if there's an error
         console.error("Login error: ", e, username, password);
         alert("Something went wrong");
       });
@@ -53,7 +58,7 @@ export const LoginView = ({ onLoggedIn }) => {
           <Form.Control
             type="text"
             value={username}
-            onChange={(e) => setusername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             required
             minLength="3"
           />
@@ -64,16 +69,28 @@ export const LoginView = ({ onLoggedIn }) => {
           <Form.Control
             type="password"
             value={password}
-            onChange={(e) => setpassword(e.target.value)}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
         </Form.Group>
-        <Button variant="primary" className="mt-3 mb-3" type="submit">
-          Submit
-        </Button>
+
+        {/* Conditionally render the button or spinner based on the loading state */}
+        <div className="mt-3 mb-3">
+          {loading ? (
+            <Button variant="primary" disabled>
+              <Spinner animation="border" size="sm" role="status" aria-hidden="true" /> Logging in...
+            </Button>
+          ) : (
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          )}
+        </div>
       </Form>
+
       <Alert className="text-center">
-      If you would like to use a test account, you can login with <br/>username: Hhl23jp231 and password: THJ234jkaf
+        If you would like to use a test account, you can login with <br />
+        username: Hhl23jp231 and password: THJ234jkaf
       </Alert>
     </>
   );
