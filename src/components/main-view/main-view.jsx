@@ -33,7 +33,9 @@ export const MainView = () => {
   const onLoggedOut = () => {
     setUser(null);
     setToken(null);
+    // window.location.reload();
     localStorage.clear();
+    
   };
 
   const handleFavoriteToggle = async (movieId, isFavorite) => {
@@ -149,7 +151,10 @@ export const MainView = () => {
   return (
     <SkeletonTheme baseColor="#e0e0e0" highlightColor="#f5f5f5">
     <BrowserRouter>
-      <NavigationBar user={user} onLoggedOut={() => localStorage.clear()} />
+      <NavigationBar user={user} 
+      onLoggedOut= {onLoggedOut}
+      // onLoggedOut={() => localStorage.clear()} 
+      />
       <Row className="justify-content-md-center mt-5">
         <Routes>
           <Route

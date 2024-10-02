@@ -11,6 +11,7 @@ export const ProfileView = ({
   favoriteMovies,
   handleFavoriteToggle,
   setFavoriteMovies,
+  onLoggedOut
 }) => {
   const { userId } = useParams();
   // Find the user by ID
@@ -118,13 +119,6 @@ export const ProfileView = ({
     } catch (error) {
       console.error("Error updating user:", error);
     }
-  };
-
-  const onLoggedOut = () => {
-    // setUser(null);
-    // setToken(null);
-    localStorage.clear();
-    window.location.reload();
   };
 
   if (!user) {
