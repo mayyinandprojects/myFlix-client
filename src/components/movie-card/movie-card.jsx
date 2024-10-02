@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -8,7 +8,6 @@ export const MovieCard = ({
   movie,
   isFavorite,
   onFavoriteToggle,
-  username,
 }) => {
   const [isFav, setIsFav] = useState(isFavorite);
 

@@ -48,7 +48,6 @@ export const MainView = () => {
         user.favorite_movies.push(movieId);
         localStorage.setItem("user", JSON.stringify(user));
         setFavoriteMovies([...user.favorite_movies]);
-
       } else {
         await axios.delete(
           `https://movie-api-4o5a.onrender.com/users/${username}/movies/${movieId}`,
@@ -59,7 +58,6 @@ export const MainView = () => {
         user.favorite_movies = [...favorites];
         localStorage.setItem("user", JSON.stringify(user));
         setFavoriteMovies([...favorites]);
-
       }
     } catch (error) {
       console.error("Error updating favorite status:", error);
@@ -204,23 +202,12 @@ export const MainView = () => {
                 <Navigate to="/login" replace />
               ) : (
                 <Col md={12}>
-                  {/* <ProfileView
+                  <ProfileView
                     users={users}
                     favoriteMovies={favoriteMovies}
                     handleFavoriteToggle={handleFavoriteToggle}
                     setFavoriteMovies={setFavoriteMovies}
-                  /> */}
-                  {user ? (
-                    <ProfileView
-                      users={users}
-                      favoriteMovies={favoriteMovies}
-                      handleFavoriteToggle={handleFavoriteToggle}
-                      setFavoriteMovies={setFavoriteMovies}
-                      movies = {movies}
-                    />
-                  ) : (
-                    <Login /> // Your login component here
-                  )}
+                  />
                 </Col>
               )
             }
@@ -271,7 +258,7 @@ export const MainView = () => {
                       <Col className="mb-5" key={movie.id} md={3}>
                         <MovieCard
                           movie={movie}
-                          isFavorite={Array.isArray(favoriteMovies) && favoriteMovies.includes(String(movie.id))}//isArray making sure it is called as an array and avoid it undefined
+                          isFavorite={favoriteMovies.includes(String(movie.id))}
                           onFavoriteToggle={handleFavoriteToggle}
                           username={user.username}
                         />

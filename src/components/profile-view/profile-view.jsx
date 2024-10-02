@@ -20,15 +20,19 @@ export const ProfileView = ({
   const [editedUser, setEditedUser] = useState(user);
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken);
-  // const [favoriteMovies, setFavoriteMovies] = useState([]);
   const [error, setError] = useState(null);
   const [movies, setMovies] = useState([]);
 
+  // Debugging for favorite movies not showing up: Explicit Check for favorite_movies:
+  // In the new version, you're explicitly checking both user and user.favorite_movies. This ensures that the favorite_movies property is defined before trying to update favoriteMovies. 
+  // If user.favorite_movies is undefined, the setFavoriteMovies function is skipped, preventing issues.
+
   useEffect(() => {
-    if (user) {
-      setFavoriteMovies(user.favoriteMovies);
+    if (user && user.favorite_movies) {
+      setFavoriteMovies(user.favorite_movies);
     }
-  }, [user]);
+  }, [user, setFavoriteMovies]);
+
 
   useEffect(() => {
     if (!token) return;

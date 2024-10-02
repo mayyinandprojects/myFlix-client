@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-import Spinner from "react-bootstrap/Spinner"; // Import Spinner
+import Spinner from "react-bootstrap/Spinner";
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();

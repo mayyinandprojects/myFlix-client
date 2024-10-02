@@ -1,7 +1,9 @@
+import React from "react";
 import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
+import Spinner from "react-bootstrap/Spinner";
 
 export const SignupView = () => {
   const [name, setName] = useState("");
@@ -9,9 +11,11 @@ export const SignupView = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setLoading(true);
 
     const data = {
       name: name,
@@ -90,11 +94,26 @@ export const SignupView = () => {
           required
         />
       </Form.Group>
-      <Button variant="primary" className="mt-3 mb-4" type="submit">
-        Submit
-      </Button>
+      <div className="mt-3 mb-3">
+        {loading ? (
+          <Button variant="primary" disabled>
+            <Spinner
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />{" "}
+            Signing Up...
+          </Button>
+        ) : (
+          <Button variant="primary" type="submit">
+            Submit
+          </Button>
+        )}
+      </div>
       <Alert className="text-center">
-      ⚠️ This project is built for demo purposes only. Please DO NOT use your real information! 
+        ⚠️ This project is built for demo purposes only. Please DO NOT use your
+        real information!
       </Alert>
     </Form>
   );
