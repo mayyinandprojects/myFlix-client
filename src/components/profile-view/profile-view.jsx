@@ -67,7 +67,7 @@ export const ProfileView = ({
     (m) => favoriteMovies.includes(String(m.id)) // Convert to string
   );
 
-  console.log(favoriteMovieList);
+  // console.log(favoriteMovieList);
 
   // Initialize editedUser with user data when switching to edit mode
   const handleEditClick = (event) => {

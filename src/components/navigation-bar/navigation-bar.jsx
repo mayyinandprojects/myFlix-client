@@ -1,3 +1,4 @@
+import React from 'react';
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,8 +8,10 @@ export const NavigationBar = ({ user, onLoggedOut }) => {
   const handleProfileClick = (event) => {
     event.preventDefault(); // Prevent the default link behavior
     navigate(`/users/${encodeURIComponent(user._id)}`); // Navigate to the profile route
-    window.location.reload(); // Reload the page
+    // window.location.reload(); // Reload the page
   };
+
+  console.log(user);
 
   return (
     <Navbar expand="lg">
